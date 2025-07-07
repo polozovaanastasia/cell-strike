@@ -1,11 +1,12 @@
 import { Game } from "./components/Game/Game";
-import { SettingsForm } from "./components/Game/SettingsForm/SettingsForm";
+import { EnemyProvider } from "./providers/enemy/ui/EnemyProvider";
 
 function App() {
     return (
         <div className="app">
-            <SettingsForm />
-            <Game />
+            <EnemyProvider>
+                <Game />
+            </EnemyProvider>
         </div>
     );
 }

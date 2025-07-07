@@ -1,0 +1,9 @@
+.game-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border: 1px solid white;
+    background: no-repeat center/contain;
+}

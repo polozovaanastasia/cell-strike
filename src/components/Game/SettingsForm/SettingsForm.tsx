@@ -3,16 +3,22 @@ import { UIButton, UIButtonSize } from "../../ui/UIButton/UIButton";
 import { UIInput } from "../../ui/UIInput/UIInput";
 import cls from "./SettingsForm.module.scss";
 
-type SettingsFormProps = {};
+type SettingsFormProps = {
+    startGame: (isStarted: boolean) => void;
+};
 
-export const SettingsForm = ({}: SettingsFormProps) => {
+export const SettingsForm = ({ startGame }: SettingsFormProps) => {
     const [url, setUrl] = useState<string>("");
 
     const onChangeHandler = (value: string) => {
         setUrl(value);
     };
+
     const addImageUrlHandler = () => {};
 
+    const startGameHandler = () => {
+        startGame(true);
+    };
     return (
         <div className={cls["settings-form"]}>
             <UIInput
@@ -28,7 +34,7 @@ export const SettingsForm = ({}: SettingsFormProps) => {
                     </UIButton>
                 }
             ></UIInput>
-            {/* <UIButton onClick={addImageUrlHandler}>Set enemy</UIButton> */}
+            <UIButton onClick={startGameHandler}>Start</UIButton>
         </div>
     );
 };
