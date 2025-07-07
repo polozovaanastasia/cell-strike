@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { UIButton, UIButtonSize } from "../../ui/UIButton/UIButton";
 import { UIInput } from "../../ui/UIInput/UIInput";
+import cls from "./SettingsForm.module.scss";
 
 type SettingsFormProps = {};
 
@@ -13,8 +14,9 @@ export const SettingsForm = ({}: SettingsFormProps) => {
     const addImageUrlHandler = () => {};
 
     return (
-        <div className="settings-form">
+        <div className={cls["settings-form"]}>
             <UIInput
+                className={cls["settings-form__input"]}
                 value={url}
                 onChange={onChangeHandler}
                 addonRight={
