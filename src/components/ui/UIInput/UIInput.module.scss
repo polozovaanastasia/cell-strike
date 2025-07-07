@@ -1,0 +1,84 @@
+.ui-input {
+    position: relative;
+    display: flex;
+    gap: 4px;
+    height: 38px;
+    padding: 4px 8px;
+    border-radius: 7px;
+    outline: 2px solid transparent;
+    background-color: var(--input-background);
+    font-size: var(--font-size-s);
+    color: var(--input-color);
+    cursor: text;
+
+    &__clear-btn {
+        color: var(--input-color);
+    }
+
+    &__label {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        transition: all 0.2s ease-in-out;
+        cursor: text;
+    }
+
+    &__control {
+        width: 100%;
+        border: none;
+        background-color: var(--input-background);
+        color: inherit;
+
+        &::placeholder {
+            color: inherit;
+        }
+
+        &:focus,
+        &:not(:placeholder-shown) {
+            & + .ui-input__label {
+                top: -25px;
+                bottom: 100%;
+                color: var(--input-background);
+            }
+        }
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    &_disabled {
+        background-color: var(--input-background_disabled);
+        color: var(--input-color_disabled);
+        cursor: default;
+
+        & .ui-input__control {
+            background-color: var(--input-background_disabled);
+
+            &::placeholder {
+                color: var(--input-color_disabled);
+            }
+        }
+    }
+
+    &:focus,
+    &:focus-within {
+        outline-color: var(--input-border-color_focus);
+        background-color: var(--input-background_focus);
+        color: var(--input-color_focus);
+
+        & .ui-input__control {
+            background-color: var(--input-background_focus);
+        }
+    }
+
+    &__addon_left,
+    &__addon_right,
+    button {
+        display: flex;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+}

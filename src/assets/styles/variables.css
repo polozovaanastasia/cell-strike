@@ -1,0 +1,20 @@
+:root {
+    /* UIButton */
+    --button-color: #365b61;
+    --button_outline-color: #40808a;
+    --button-color_hover: #365b61;
+    --button-color_hover-alpha: rgb(64 128 138 / 50%);
+    --button-color_active: #183a40;
+    --button-background_disabled: rgb(114 114 114);
+    --button-color_disabled: rgb(189 184 184);
+
+    /* UIInput */
+    --input-background: #fdfdfd;
+    --input-background_focus: #fdfdfd;
+    --input-color: #252525;
+    --input-color_focus: #365b61;
+    --input-border-color: #fdfdfd;
+    --input-border-color_focus: #365b61;
+    --input-background_disabled: red;
+    --input-color_disabled: green;
+}
