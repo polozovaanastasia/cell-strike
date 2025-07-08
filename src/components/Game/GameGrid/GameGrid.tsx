@@ -1,4 +1,4 @@
-import { EnemyIndexType } from "../../../providers/enemy/EnemyContext";
+import { EnemyIndexType } from "../../../hooks/useGameState";
 import { classNames } from "../../../utils/classNames";
 import { GameCell } from "../GameCell/GameCell";
 import cls from "./GameGrid.module.scss";
@@ -9,17 +9,31 @@ type GameCell = {
 
 type GameGridProps = {
     enemyIndex: EnemyIndexType;
+    enemyUrl: string;
     gameCells: GameCell[];
+    updateHits: () => void;
 };
 
-export const GameGrid = ({ enemyIndex, gameCells }: GameGridProps) => {
+export const GameGrid = ({
+    enemyIndex,
+    enemyUrl,
+    gameCells,
+    updateHits,
+}: GameGridProps) => {
     return (
-        <div className={classNames(cls["game-grid"], {}, [])}>
-            {gameCells.map((cell, index) => (
-                <GameCell key={index} index={index} enemyIndex={enemyIndex}>
-                    {cell.hasEnemy}
-                </GameCell>
-            ))}
+        <div className={classNames(cls["game-grid"])}>
+            {gameCells.map((cell, index) => {
+                const hasEnemy = index === enemyIndex;
+                return (
+                    <GameCell
+                        key={index}
+                        index={index}
+                        hasEnemy={hasEnemy}
+                        enemyUrl={enemyUrl}
+                        updateHits={updateHits}
+                    />
+                );
+            })}
         </div>
     );
 };

@@ -6,4 +6,8 @@
     height: 150px;
     border: 1px solid white;
     background: no-repeat center/contain;
+
+    &_has-enemy {
+        cursor: url("../../../assets/images/aim.svg"), pointer;
+    }
 }
