@@ -15,12 +15,11 @@ export const GameCell = memo(
             [cls["game-cell_has-enemy"]]: hasEnemy,
         });
 
-        // console.log("Updated cell: ", index);
-
         const onClickHandler = () => {
             if (!hasEnemy) return;
             updateHits();
         };
+
         return (
             <div
                 className={gameCellClassNames}

@@ -1,32 +1,103 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef } from "react";
+import { INTERVAL_DELAY } from "../constants";
+import { EnemyIndexType, IntervalType } from "../types";
 
-const INTERVAL_DELAY: number = 1300;
+export type GameStateType = {
+    enemyUrl: string;
+    enemyIndex: EnemyIndexType;
+    hits: number;
+    misses: number;
+};
 
-export type EnemyIndexType = number | null;
-type intervalType = NodeJS.Timeout | null;
+enum GameActionType {
+    SET_ENEMY_URL = "SET-ENEMY-URL",
+    TICK = "TICK",
+    HITS = "HITS",
+    MISSES = "MISSES",
+}
+
+type GameActionsType =
+    | { type: GameActionType.SET_ENEMY_URL; url: string }
+    | { type: GameActionType.TICK; newEnemyIndex: number }
+    | { type: GameActionType.HITS }
+    | { type: GameActionType.MISSES };
+
+export const initGameState: GameStateType = {
+    enemyUrl: "",
+    enemyIndex: null,
+    hits: 0,
+    misses: 0,
+};
+
+const gameReducer = (state: GameStateType, action: GameActionsType) => {
+    switch (action.type) {
+        case GameActionType.SET_ENEMY_URL:
+            return { ...state, enemyUrl: action.url };
+
+        case GameActionType.TICK:
+            return { ...state, enemyIndex: action.newEnemyIndex };
+
+        case GameActionType.HITS: {
+            return { ...state, hits: state.hits + 1, enemyIndex: null };
+        }
+        case GameActionType.MISSES:
+            return { ...state, misses: state.misses + 1 };
+
+        default:
+            return state;
+    }
+};
+
+const setEnemyUrlAC = (url: string): GameActionsType => {
+    return {
+        type: GameActionType.SET_ENEMY_URL,
+        url,
+    };
+};
+
+const tickAC = (newEnemyIndex: number): GameActionsType => {
+    return {
+        type: GameActionType.TICK,
+        newEnemyIndex,
+    };
+};
+const hitsAC = (): GameActionsType => {
+    return {
+        type: GameActionType.HITS,
+    };
+};
+const missesAC = (): GameActionsType => {
+    return {
+        type: GameActionType.MISSES,
+    };
+};
 
 export const useGameState = () => {
-    const [enemyUrl, setEnemyUrl] = useState<string>("");
-    const [enemyIndex, setEnemyIndex] = useState<EnemyIndexType>(null);
-    const [hits, setHits] = useState<number>(0);
-    const [miss, setMiss] = useState<number>(0);
+    console.log("Called useGameState");
+    const [state, dispatch] = useReducer(gameReducer, initGameState);
 
     const gameCells = new Array(5 * 3).fill(null);
 
-    const addEnemy = (url: string) => {
-        setEnemyUrl(url);
-    };
+    const addEnemy = useCallback((url: string) => {
+        dispatch(setEnemyUrlAC(url));
+    }, []);
 
     const getRandomIndex = () => {
         return Math.floor(Math.random() * gameCells.length);
     };
 
-    const intervalRef = useRef<intervalType>(null);
+    const intervalRef = useRef<IntervalType>(null);
 
     const startGame = () => {
+        if (intervalRef.current) return;
+
         intervalRef.current = setInterval(() => {
-            const randomIndex = getRandomIndex();
-            setEnemyIndex(randomIndex);
+            const rundomIndex = getRandomIndex();
+            dispatch(tickAC(rundomIndex));
+            // debugger;
+            if (state.enemyIndex !== null) {
+                dispatch(missesAC());
+            }
         }, INTERVAL_DELAY);
     };
 
@@ -37,19 +108,23 @@ export const useGameState = () => {
         }
     };
 
-    const updateHits = () => {
-        setHits((lastValue) => lastValue + 1);
-        setEnemyIndex(null);
-        console.log(hits);
-    };
+    const updateHits = useCallback(() => {
+        dispatch(hitsAC());
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+            }
+        };
+    }, []);
 
     return {
-        enemyUrl,
-        addEnemy,
+        ...state,
         gameCells,
-        enemyIndex,
+        addEnemy,
         startGame,
-        hits,
         updateHits,
     };
 };

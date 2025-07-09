@@ -1,16 +1,12 @@
-import { EnemyIndexType } from "../../../hooks/useGameState";
+import { EnemyIndexType } from "../../../types";
 import { classNames } from "../../../utils/classNames";
 import { GameCell } from "../GameCell/GameCell";
 import cls from "./GameGrid.module.scss";
 
-type GameCell = {
-    hasEnemy: boolean;
-};
-
 type GameGridProps = {
     enemyIndex: EnemyIndexType;
     enemyUrl: string;
-    gameCells: GameCell[];
+    gameCells: Array<null>;
     updateHits: () => void;
 };
 
