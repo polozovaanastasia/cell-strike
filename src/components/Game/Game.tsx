@@ -4,16 +4,8 @@ import { GameGrid } from "./GameGrid/GameGrid";
 import { SettingsForm } from "./SettingsForm/SettingsForm";
 
 export const Game = () => {
-    const {
-        enemyUrl,
-        enemyIndex,
-        gameCells,
-        hits,
-        misses,
-        addEnemy,
-        startGame,
-        updateHits,
-    } = useGameState();
+    const { gameCells, enemy, hits, misses, addEnemy, startGame, updateHits } =
+        useGameState();
 
     return (
         <div className={cls.game}>
@@ -21,8 +13,8 @@ export const Game = () => {
             <h1>Hits: {hits}</h1>
             <h1>Misses: {misses}</h1>
             <GameGrid
-                enemyIndex={enemyIndex}
-                enemyUrl={enemyUrl}
+                enemyIndex={enemy.index}
+                enemyUrl={enemy.url}
                 gameCells={gameCells}
                 updateHits={updateHits}
             />
