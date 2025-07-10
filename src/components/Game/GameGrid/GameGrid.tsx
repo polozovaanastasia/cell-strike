@@ -23,7 +23,6 @@ export const GameGrid = ({
                 return (
                     <GameCell
                         key={index}
-                        index={index}
                         hasEnemy={hasEnemy}
                         enemyUrl={enemyUrl}
                         updateHits={updateHits}

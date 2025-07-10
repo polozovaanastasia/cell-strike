@@ -36,15 +36,9 @@ export const initGameState: GameStateType = {
 const gameReducer = (state: GameStateType, action: GameActionsType) => {
     switch (action.type) {
         case GameActionType.SET_ENEMY_URL:
-            // return { ...state, enemyUrl: action.url };
             return { ...state, enemy: { ...state.enemy, url: action.url } };
 
-        // case GameActionType.SET_ENEMY_HAS_HIT:
-        // return { ...state, enemyUrl: action.url };
-        // return { ...state, enemy: { ...state.enemy, hasHit: false } };
-
         case GameActionType.TICK:
-            // return { ...state, enemyIndex: action.newEnemyIndex };
             return {
                 ...state,
                 enemy: { ...state.enemy, index: action.newEnemyIndex },

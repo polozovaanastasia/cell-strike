@@ -1,16 +1,18 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
+import bloodImg from "../../../assets/images/blood.png";
 import { classNames } from "../../../utils/classNames";
 import cls from "./GameCell.module.scss";
 
 type GameCellProps = {
-    index: number;
     hasEnemy: boolean;
     enemyUrl: string;
     updateHits: () => void;
 };
 
 export const GameCell = memo(
-    ({ index, hasEnemy, enemyUrl, updateHits }: GameCellProps) => {
+    ({ hasEnemy, enemyUrl, updateHits }: GameCellProps) => {
+        const [image, setImage] = useState<string>(enemyUrl);
+
         const gameCellClassNames = classNames(cls["game-cell"], {
             [cls["game-cell_has-enemy"]]: hasEnemy,
         });
@@ -18,7 +20,12 @@ export const GameCell = memo(
         const onClickHandler = () => {
             if (!hasEnemy) return;
             updateHits();
+            setImage(bloodImg);
         };
+
+        useEffect(() => {
+            setImage(enemyUrl);
+        }, [enemyUrl, hasEnemy]);
 
         return (
             <div
@@ -26,7 +33,7 @@ export const GameCell = memo(
                 style={
                     hasEnemy
                         ? {
-                              backgroundImage: `url(${enemyUrl})`,
+                              backgroundImage: `url(${image})`,
                           }
                         : undefined
                 }
