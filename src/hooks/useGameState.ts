@@ -10,7 +10,6 @@ import {
 export type EnemyStateType = {
     url: string;
     index: EnemyIndexType;
-    // hasHit: boolean;
 };
 
 export type GameStateType = {
@@ -25,7 +24,6 @@ export const initGameState: GameStateType = {
     enemy: {
         url: "",
         index: null,
-        // hasHit: false,
     },
     enemyUrl: "",
     enemyIndex: null,
@@ -91,9 +89,9 @@ export const useGameState = () => {
         wasHit: true,
     });
 
-    const gameCells = new Array(1 * 3).fill(null);
+    const gameCells = new Array(8 * 3).fill(null);
 
-    const addEnemy = useCallback((url: string) => {
+    const setEnemy = useCallback((url: string) => {
         dispatch(setEnemyUrlAC(url));
     }, []);
 
@@ -123,12 +121,12 @@ export const useGameState = () => {
         }, INTERVAL_DELAY);
     };
 
-    const stopGame = () => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-        }
-    };
+    // const stopGame = () => {
+    //     if (intervalRef.current) {
+    //         clearInterval(intervalRef.current);
+    //         intervalRef.current = null;
+    //     }
+    // };
 
     const updateHits = useCallback(() => {
         if (!enemyRefs.current.wasHit) {
@@ -150,7 +148,7 @@ export const useGameState = () => {
         hits,
         misses,
         gameCells,
-        addEnemy,
+        setEnemy,
         startGame,
         updateHits,
     };

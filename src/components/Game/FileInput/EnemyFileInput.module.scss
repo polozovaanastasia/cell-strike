@@ -1,0 +1,26 @@
+.enemy-file-input {
+    display: flex;
+    justify-content: end;
+    width: 350px;
+    padding: 4px 8px;
+    border-radius: 7px;
+    background-color: var(--input-background);
+    font-size: var(--font-size-s);
+    color: var(--input-color);
+
+    &__button {
+        position: relative;
+    }
+    &__control {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+    &__preview {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+}

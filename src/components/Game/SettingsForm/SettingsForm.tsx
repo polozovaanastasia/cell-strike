@@ -4,23 +4,21 @@ import {
     UIButtonSize,
     UIButtonType,
 } from "../../ui/UIButton/UIButton";
-import { UIInput } from "../../ui/UIInput/UIInput";
+import { FileInput } from "../FileInput/EnemyFileInput";
+import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
 import cls from "./SettingsForm.module.scss";
 
 type SettingsFormProps = {
-    addEnemy: (url: string) => void;
+    setEnemy: (url: string) => void;
     startGame: (isStarted: boolean) => void;
 };
 
-export const SettingsForm = ({ addEnemy, startGame }: SettingsFormProps) => {
-    const [url, setUrl] = useState<string>("");
+export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
+    const [isEnemySelected, setIsEnemySelected] = useState<boolean>(false);
 
-    const onChangeHandler = (value: string) => {
-        setUrl(value);
-    };
-
-    const addEnemyUrlHandler = () => {
-        addEnemy(url);
+    const onEnemySelectHandler = (src: string) => {
+        setEnemy(src);
+        setIsEnemySelected(true);
     };
 
     const startGameHandler = () => {
@@ -28,22 +26,18 @@ export const SettingsForm = ({ addEnemy, startGame }: SettingsFormProps) => {
     };
     return (
         <div className={cls["settings-form"]}>
-            <UIInput
-                className={cls["settings-form__input"]}
-                value={url}
-                onChange={onChangeHandler}
-                addonRight={
-                    <UIButton
-                        onClick={addEnemyUrlHandler}
-                        size={UIButtonSize.S}
-                    >
-                        Set enemy
-                    </UIButton>
-                }
-            ></UIInput>
-            <UIButton type={UIButtonType.OUTLINE} onClick={startGameHandler}>
-                Start
-            </UIButton>
+            <EnemyUrlInput onEnemySelect={onEnemySelectHandler} />
+            <FileInput onEnemySelect={onEnemySelectHandler} />
+
+            {isEnemySelected && (
+                <UIButton
+                    type={UIButtonType.OUTLINE}
+                    size={UIButtonSize.LG}
+                    onClick={startGameHandler}
+                >
+                    Start Game
+                </UIButton>
+            )}
         </div>
     );
 };

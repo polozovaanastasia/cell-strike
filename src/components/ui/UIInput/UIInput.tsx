@@ -1,4 +1,4 @@
-import { ChangeEvent, HTMLInputTypeAttribute, memo, useId } from "react";
+import { ChangeEvent, InputHTMLAttributes, memo, useId } from "react";
 import { classNames } from "../../../utils/classNames";
 import { UIButton, UIButtonSize, UIButtonType } from "../UIButton/UIButton";
 import cls from "./UIInput.module.scss";
@@ -9,17 +9,18 @@ export enum UIInputVariant {
 }
 
 type UIInputProps = (UIInputWithClear | UIInputWithoutClear) & {
-    value: string;
+    // value: string;
     variant?: UIInputVariant;
-    type?: HTMLInputTypeAttribute;
-    placeholder?: string;
-    disabled?: boolean;
+    // type?: HTMLInputTypeAttribute;
+    // placeholder?: string;
+    // disabled?: boolean;
     autoFocus?: boolean;
     addonLeft?: React.ReactNode;
     addonRight?: React.ReactNode;
+    helperText?: string;
     className?: string;
     onChange: (value: string) => void;
-};
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
 
 type UIInputWithClear = {
     allowClear: true;
@@ -41,16 +42,21 @@ export const UIInput = memo(
         autoFocus,
         addonLeft,
         addonRight,
+        helperText,
         allowClear,
         className,
         onClear,
         onChange,
+        ...otherProps
     }: UIInputProps) => {
         const id = useId();
 
         const UIInputClasses = classNames(
             cls["ui-input"],
-            { [cls["ui-input_disabled"]]: disabled },
+            {
+                [cls["ui-input_disabled"]]: disabled,
+                [cls["ui-input_has-helper"]]: !!helperText,
+            },
             [className, cls[`variant-${variant}`]]
         );
 
@@ -64,49 +70,55 @@ export const UIInput = memo(
         };
 
         return (
-            <div className={UIInputClasses}>
-                {addonLeft && (
-                    <div className={cls["ui-input__addon_left"]}>
-                        {addonLeft}
-                    </div>
-                )}
-                <input
-                    id={`ui-input_${id}`}
-                    className={classNames(cls["ui-input__control"])}
-                    value={value}
-                    type={type}
-                    placeholder={
-                        variant === UIInputVariant.FLOATING ? " " : placeholder
-                    }
-                    disabled={disabled}
-                    autoFocus={autoFocus}
-                    onChange={onChangeHandler}
-                />
-                {variant === UIInputVariant.FLOATING && (
-                    <label
-                        htmlFor={`ui-input_${id}`}
-                        className={classNames(cls["ui-input__label"])}
-                    >
-                        {placeholder}
-                    </label>
-                )}
-                {addonRight && (
-                    <div className={cls["ui-input__addon_right"]}>
-                        {addonRight}
-                    </div>
-                )}
-                {allowClear && value && (
-                    <UIButton
-                        type={UIButtonType.ICON}
-                        size={UIButtonSize.S}
+            <>
+                <div className={UIInputClasses}>
+                    {addonLeft && (
+                        <div className={cls["ui-input__addon_left"]}>
+                            {addonLeft}
+                        </div>
+                    )}
+                    <input
+                        id={`ui-input_${id}`}
+                        className={classNames(cls["ui-input__control"])}
+                        value={value}
+                        type={type}
+                        placeholder={
+                            variant === UIInputVariant.FLOATING
+                                ? " "
+                                : placeholder
+                        }
                         disabled={disabled}
-                        className={cls["ui-input__clear-btn"]}
-                        onClick={onClearHandler}
-                    >
-                        x{/* <CrossIcon /> */}
-                    </UIButton>
-                )}
-            </div>
+                        autoFocus={autoFocus}
+                        onChange={onChangeHandler}
+                        {...otherProps}
+                    />
+                    {variant === UIInputVariant.FLOATING && (
+                        <label
+                            htmlFor={`ui-input_${id}`}
+                            className={classNames(cls["ui-input__label"])}
+                        >
+                            {placeholder}
+                        </label>
+                    )}
+                    {addonRight && (
+                        <div className={cls["ui-input__addon_right"]}>
+                            {addonRight}
+                        </div>
+                    )}
+                    {allowClear && value && (
+                        <UIButton
+                            type={UIButtonType.ICON}
+                            size={UIButtonSize.S}
+                            disabled={disabled}
+                            className={cls["ui-input__clear-btn"]}
+                            onClick={onClearHandler}
+                        >
+                            x{/* <CrossIcon /> */}
+                        </UIButton>
+                    )}
+                </div>
+                <div className={cls["ui-input__helper-text"]}>{helperText}</div>
+            </>
         );
     }
 );
