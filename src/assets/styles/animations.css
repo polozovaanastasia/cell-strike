@@ -1,4 +1,4 @@
-@keyframes shake_animation {
+@keyframes shake {
     0% {
         transform: translateX(0);
     }
@@ -42,4 +42,9 @@
     100% {
         transform: translateX(0);
     }
+}
+
+.shake-animation {
+    animation: shake 800ms ease-out;
+    animation-fill-mode: both;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAnimation } from "../../../../hooks/useAnimation";
 import { classNames } from "../../../../utils/classNames";
 import { UIButton, UIButtonSize } from "../../../ui/UIButton/UIButton";
 import { UIInput } from "../../../ui/UIInput/UIInput";
@@ -10,16 +11,29 @@ type EnemyUrlInputProps = {
 
 export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
+    const [hasAnimation, triggerAnimation] = useAnimation();
+
+    const EnemyUrlInputClassNames = classNames(
+        cls["enemy-url-input"],
+        {
+            "shake-animation": hasAnimation,
+        },
+        []
+    );
 
     const onChangeHandler = (url: string) => {
         setUrl(url);
     };
 
     const onEnemySelectHandler = () => {
+        if (!url) {
+            triggerAnimation();
+            return;
+        }
         onEnemySelect(url);
     };
     return (
-        <div className={classNames(cls["enemy-url-input"], {}, [])}>
+        <div className={classNames(EnemyUrlInputClassNames)}>
             <UIInput
                 className={cls["enemy-url-input__control"]}
                 value={url}
