@@ -1,12 +1,18 @@
 .enemy-file-input {
     display: flex;
     justify-content: end;
-    width: 350px;
-    padding: 4px 8px;
+    max-width: 300px;
     border-radius: 7px;
     background-color: var(--input-background);
     font-size: var(--font-size-s);
     color: var(--input-color);
+    transition: max-width ease-in-out 0.4s;
+
+    &__has-file {
+        max-width: 350px;
+        width: 350px;
+        padding: 4px 8px;
+    }
 
     &__button {
         position: relative;
@@ -22,5 +28,9 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
+
+        &-btn {
+            cursor: pointer;
+        }
     }
 }

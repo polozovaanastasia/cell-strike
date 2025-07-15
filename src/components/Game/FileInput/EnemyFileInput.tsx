@@ -13,6 +13,14 @@ export const FileInput = ({ onEnemySelect }: FileInputProps) => {
         src: string;
     } | null>(null);
 
+    const EnemyFileInputClassNames = classNames(
+        cls["enemy-file-input"],
+        {
+            [cls["enemy-file-input__has-file"]]: !!fileData,
+        },
+        []
+    );
+
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (files) {
@@ -25,7 +33,7 @@ export const FileInput = ({ onEnemySelect }: FileInputProps) => {
         onEnemySelect(fileData.src);
     };
     return (
-        <label className={classNames(cls["enemy-file-input"])}>
+        <label className={EnemyFileInputClassNames}>
             {!fileData && (
                 <UIButton
                     className={cls["enemy-file-input__button"]}
@@ -42,8 +50,9 @@ export const FileInput = ({ onEnemySelect }: FileInputProps) => {
             )}
             {fileData && (
                 <span className={cls["enemy-file-input__preview"]}>
-                    {fileData.name}
+                    {`Выбран: ${fileData.name}`}
                     <UIButton
+                        className={cls["enemy-file-input__preview-btn"]}
                         size={UIButtonSize.S}
                         onClick={onEnemySelectHandler}
                     >

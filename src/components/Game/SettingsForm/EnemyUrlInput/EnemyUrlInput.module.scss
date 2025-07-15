@@ -1,8 +1,7 @@
 .enemy-url-input {
     width: 350px;
+    animation: 800ms ease-out;
 
     &__has-error {
-        animation-name: shake_animation;
-        animation: 800ms ease-out;
     }
 }

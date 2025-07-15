@@ -11,12 +11,14 @@ type EnemyUrlInputProps = {
 
 export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
+    const [hasError, setHasError] = useState<boolean>(false);
     const [hasAnimation, triggerAnimation] = useAnimation();
 
     const EnemyUrlInputClassNames = classNames(
         cls["enemy-url-input"],
         {
-            "shake-animation": hasAnimation,
+            "animation-shake": hasAnimation,
+            [cls["enemy-url-input__has-error"]]: hasError,
         },
         []
     );
@@ -27,13 +29,19 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
 
     const onEnemySelectHandler = () => {
         if (!url) {
+            setHasError(true);
             triggerAnimation();
             return;
         }
         onEnemySelect(url);
     };
     return (
-        <div className={classNames(EnemyUrlInputClassNames)}>
+        <div
+            className={classNames(EnemyUrlInputClassNames)}
+            onBlur={() => {
+                setHasError(false);
+            }}
+        >
             <UIInput
                 className={cls["enemy-url-input__control"]}
                 value={url}
@@ -46,8 +54,9 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
                         Set enemy
                     </UIButton>
                 }
-                // helperText="Hello i'm helper text! "
+                placeholder={"Enter image URL"}
             ></UIInput>
+            {hasError && <div>Error message</div>}
         </div>
     );
 };

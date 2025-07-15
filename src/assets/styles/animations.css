@@ -44,7 +44,6 @@
     }
 }
 
-.shake-animation {
-    animation: shake 800ms ease-out;
-    animation-fill-mode: both;
+.animation-shake {
+    animation-name: shake;
 }

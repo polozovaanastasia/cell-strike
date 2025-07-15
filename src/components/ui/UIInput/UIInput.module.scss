@@ -47,6 +47,15 @@
         &:focus-visible {
             outline: none;
         }
+
+        &:focus::placeholder {
+            color: transparent;
+        }
+
+        &:-webkit-autofill {
+            box-shadow: 0 0 0 1000px var(--input-background) inset;
+            -webkit-text-fill-color: var(--input-color);
+        }
     }
 
     &_disabled {
