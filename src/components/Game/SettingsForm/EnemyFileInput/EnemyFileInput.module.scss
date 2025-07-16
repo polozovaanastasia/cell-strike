@@ -1,4 +1,5 @@
 .enemy-file-input {
+    position: relative;
     display: flex;
     justify-content: end;
     max-width: 300px;
@@ -22,12 +23,34 @@
         inset: 0;
         opacity: 0;
         cursor: pointer;
+        font-size: 0;
+        text-indent: -105px;
     }
     &__preview {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
+        padding-left: 65px;
+
+        &-label {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            border-radius: 6px 0 0 6px;
+            background-color: var(--button-color);
+            color: var(--font-color);
+        }
+
+        &-file {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         &-btn {
             cursor: pointer;

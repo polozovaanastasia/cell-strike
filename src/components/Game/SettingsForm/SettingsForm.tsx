@@ -4,16 +4,22 @@ import {
     UIButtonSize,
     UIButtonType,
 } from "../../ui/UIButton/UIButton";
-import { FileInput } from "../FileInput/EnemyFileInput";
+import { EnemyInputModes } from "../Game";
+import { EnemyFileInput } from "./EnemyFileInput/EnemyFileInput";
 import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
 import cls from "./SettingsForm.module.scss";
 
 type SettingsFormProps = {
+    enemyInputMode: EnemyInputModes | null;
     setEnemy: (url: string) => void;
     startGame: (isStarted: boolean) => void;
 };
 
-export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
+export const SettingsForm = ({
+    enemyInputMode,
+    setEnemy,
+    startGame,
+}: SettingsFormProps) => {
     const [isEnemySelected, setIsEnemySelected] = useState<boolean>(false);
 
     const onEnemySelectHandler = (src: string) => {
@@ -26,8 +32,12 @@ export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
     };
     return (
         <div className={cls["settings-form"]}>
-            <EnemyUrlInput onEnemySelect={onEnemySelectHandler} />
-            <FileInput onEnemySelect={onEnemySelectHandler} />
+            {enemyInputMode === EnemyInputModes.URL && (
+                <EnemyUrlInput onEnemySelect={onEnemySelectHandler} />
+            )}
+            {enemyInputMode === EnemyInputModes.UPLOAD && (
+                <EnemyFileInput onEnemySelect={onEnemySelectHandler} />
+            )}
 
             {isEnemySelected && (
                 <UIButton

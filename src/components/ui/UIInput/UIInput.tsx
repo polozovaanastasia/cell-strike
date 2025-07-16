@@ -9,11 +9,7 @@ export enum UIInputVariant {
 }
 
 type UIInputProps = (UIInputWithClear | UIInputWithoutClear) & {
-    // value: string;
     variant?: UIInputVariant;
-    // type?: HTMLInputTypeAttribute;
-    // placeholder?: string;
-    // disabled?: boolean;
     autoFocus?: boolean;
     addonLeft?: React.ReactNode;
     addonRight?: React.ReactNode;

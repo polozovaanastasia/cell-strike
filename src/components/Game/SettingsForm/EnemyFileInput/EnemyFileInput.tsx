@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { classNames } from "../../../utils/classNames";
-import { UIButton, UIButtonSize } from "../../ui/UIButton/UIButton";
+import { classNames } from "../../../../utils/classNames";
+import { UIButton, UIButtonSize } from "../../../ui/UIButton/UIButton";
 import cls from "./EnemyFileInput.module.scss";
 
-type FileInputProps = {
+type EnemyFileInputProps = {
     onEnemySelect: (src: string) => void;
 };
 
-export const FileInput = ({ onEnemySelect }: FileInputProps) => {
+export const EnemyFileInput = ({ onEnemySelect }: EnemyFileInputProps) => {
     const [fileData, setFileData] = useState<{
         name: string;
         src: string;
@@ -49,8 +49,13 @@ export const FileInput = ({ onEnemySelect }: FileInputProps) => {
                 </UIButton>
             )}
             {fileData && (
-                <span className={cls["enemy-file-input__preview"]}>
-                    {`Выбран: ${fileData.name}`}
+                <div className={cls["enemy-file-input__preview"]}>
+                    <span className={cls["enemy-file-input__preview-label"]}>
+                        Выбран:
+                    </span>
+                    <span className={cls["enemy-file-input__preview-file"]}>
+                        {fileData.name}
+                    </span>
                     <UIButton
                         className={cls["enemy-file-input__preview-btn"]}
                         size={UIButtonSize.S}
@@ -58,7 +63,7 @@ export const FileInput = ({ onEnemySelect }: FileInputProps) => {
                     >
                         Set Enemy
                     </UIButton>
-                </span>
+                </div>
             )}
         </label>
     );
