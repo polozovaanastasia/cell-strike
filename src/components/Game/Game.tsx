@@ -1,5 +1,5 @@
+import { useGameState } from "@/hooks/useGameState";
 import { useState } from "react";
-import { useGameState } from "../../hooks/useGameState";
 import cls from "./Game.module.scss";
 import { GameGrid } from "./GameGrid/GameGrid";
 import { GameStats } from "./GameStats/GameStats";

@@ -1,6 +1,6 @@
+import CrossIcon from "@/assets/images/icons/CrossIcon.svg";
+import { classNames } from "@/utils/classNames";
 import { ChangeEvent, InputHTMLAttributes, memo, useId } from "react";
-import CrossIcon from "../../../assets/images/icons/CrossIcon.svg";
-import { classNames } from "../../../utils/classNames";
 import { UIButton, UIButtonSize, UIButtonType } from "../UIButton/UIButton";
 import cls from "./UIInput.module.scss";
 

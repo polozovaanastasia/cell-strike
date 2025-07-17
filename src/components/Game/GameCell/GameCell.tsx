@@ -1,6 +1,6 @@
+import bloodImg from "@/assets/images/blood.png";
+import { classNames } from "@/utils/classNames";
 import { memo, useEffect, useState } from "react";
-import bloodImg from "../../../assets/images/blood.png";
-import { classNames } from "../../../utils/classNames";
 import cls from "./GameCell.module.scss";
 
 type GameCellProps = {

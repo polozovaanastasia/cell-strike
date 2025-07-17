@@ -1,4 +1,4 @@
-import { classNames } from "../../../utils/classNames";
+import { classNames } from "@/utils/classNames";
 import { UIButton, UIButtonSize } from "../UIButton/UIButton";
 import { UIRadioVariant } from "../UIRadioGroup/UIRadioGroup";
 import cls from "./UIRadio.module.scss";
@@ -44,6 +44,7 @@ export const UIRadio = <T extends string | number>({
                     value={value}
                     checked={checked}
                     onChange={onChangeHandler}
+                    hidden
                 />
                 <UIButton
                     size={UIButtonSize.LG}
@@ -66,7 +67,7 @@ export const UIRadio = <T extends string | number>({
                 checked={checked}
                 onChange={onChangeHandler}
             />
-            <span hidden>{label}</span>
+            <span>{label}</span>
         </label>
     );
 };

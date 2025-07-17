@@ -1,6 +1,6 @@
+import { UIButton, UIButtonSize } from "@/components/ui/UIButton/UIButton";
+import { classNames } from "@/utils/classNames";
 import { useState } from "react";
-import { classNames } from "../../../../utils/classNames";
-import { UIButton, UIButtonSize } from "../../../ui/UIButton/UIButton";
 import cls from "./EnemyFileInput.module.scss";
 
 type EnemyFileInputProps = {

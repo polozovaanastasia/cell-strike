@@ -1,4 +1,4 @@
-import { classNames } from "../../../utils/classNames";
+import { classNames } from "@/utils/classNames";
 import { UIRadio } from "../UIRadio/UIRadio";
 import cls from "./UIRadioGroup.module.scss";
 

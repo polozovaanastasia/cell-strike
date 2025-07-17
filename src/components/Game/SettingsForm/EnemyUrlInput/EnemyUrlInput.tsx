@@ -1,8 +1,8 @@
+import { UIButton, UIButtonSize } from "@/components/ui/UIButton/UIButton";
+import { UIInput } from "@/components/ui/UIInput/UIInput";
+import { useAnimation } from "@/hooks/useAnimation";
+import { classNames } from "@/utils/classNames";
 import { useState } from "react";
-import { useAnimation } from "../../../../hooks/useAnimation";
-import { classNames } from "../../../../utils/classNames";
-import { UIButton, UIButtonSize } from "../../../ui/UIButton/UIButton";
-import { UIInput } from "../../../ui/UIInput/UIInput";
 import cls from "./EnemyUrlInput.module.scss";
 
 type EnemyUrlInputProps = {

@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useReducer, useRef } from "react";
-import { INTERVAL_DELAY } from "../constants";
+import { INTERVAL_DELAY } from "@/constants";
 import {
     EnemyIndexType,
     GameActionsType,
     GameActionType,
     IntervalType,
-} from "../types";
+} from "@/types";
+import { useCallback, useEffect, useReducer, useRef } from "react";
 
 export type EnemyStateType = {
     url: string;

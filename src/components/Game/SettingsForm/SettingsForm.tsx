@@ -1,14 +1,15 @@
-import { useState } from "react";
 import {
     UIButton,
     UIButtonSize,
     UIButtonType,
-} from "../../ui/UIButton/UIButton";
+} from "@/components/ui/UIButton/UIButton";
+
 import {
     OptionType,
     UIRadioGroup,
     UIRadioVariant,
-} from "../../ui/UIRadioGroup/UIRadioGroup";
+} from "@/components/ui/UIRadioGroup/UIRadioGroup";
+import { useState } from "react";
 import { EnemyFileInput } from "./EnemyFileInput/EnemyFileInput";
 import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
 import cls from "./SettingsForm.module.scss";
