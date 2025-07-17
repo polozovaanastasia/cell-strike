@@ -1,4 +1,5 @@
 import { ChangeEvent, InputHTMLAttributes, memo, useId } from "react";
+import CrossIcon from "../../../assets/images/icons/CrossIcon.svg";
 import { classNames } from "../../../utils/classNames";
 import { UIButton, UIButtonSize, UIButtonType } from "../UIButton/UIButton";
 import cls from "./UIInput.module.scss";
@@ -96,11 +97,6 @@ export const UIInput = memo(
                             {placeholder}
                         </label>
                     )}
-                    {addonRight && (
-                        <div className={cls["ui-input__addon_right"]}>
-                            {addonRight}
-                        </div>
-                    )}
                     {allowClear && value && (
                         <UIButton
                             type={UIButtonType.ICON}
@@ -109,8 +105,13 @@ export const UIInput = memo(
                             className={cls["ui-input__clear-btn"]}
                             onClick={onClearHandler}
                         >
-                            x{/* <CrossIcon /> */}
+                            <CrossIcon />
                         </UIButton>
+                    )}
+                    {addonRight && (
+                        <div className={cls["ui-input__addon_right"]}>
+                            {addonRight}
+                        </div>
                     )}
                 </div>
                 <div className={cls["ui-input__helper-text"]}>{helperText}</div>

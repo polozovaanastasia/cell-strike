@@ -1,0 +1,33 @@
+.ui-radio {
+    cursor: pointer;
+
+    &_active .ui-radio__btn {
+        background-color: var(--button-color_active);
+
+        &:hover {
+            background-color: var(--button-color_active);
+        }
+    }
+
+    &.variant-button {
+        display: flex;
+
+        .ui-radio__control {
+            display: none;
+        }
+
+        .ui-radio__btn {
+            border-radius: 0;
+            border-right: 1px solid var(--radio-border-color);
+        }
+
+        &:first-child .ui-radio__btn {
+            border-radius: 7px 0 0 7px;
+        }
+
+        &:last-child .ui-radio__btn {
+            border-radius: 0 7px 7px 0;
+            border-right: none;
+        }
+    }
+}

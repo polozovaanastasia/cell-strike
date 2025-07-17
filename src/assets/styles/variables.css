@@ -22,7 +22,7 @@
     --button_outline-color: #262728;
     --button-color_hover: #3f4142;
     --button-color_hover-alpha: rgba(58, 61, 62, 0.5);
-    --button-color_active: #282a2b;
+    --button-color_active: #1e2021;
     --button-background_disabled: rgb(114 114 114);
     --button-color_disabled: rgb(189 184 184);
 
@@ -35,4 +35,7 @@
     --input-border-color_focus: #333536;
     --input-background_disabled: red;
     --input-color_disabled: green;
+
+    /* UIRadio */
+    --radio-border-color: #ffffff;
 }

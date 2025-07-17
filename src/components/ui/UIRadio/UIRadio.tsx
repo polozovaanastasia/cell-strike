@@ -1,12 +1,8 @@
-import { ChangeEvent } from "react";
 import { classNames } from "../../../utils/classNames";
-import { UIButton } from "../UIButton/UIButton";
+import { UIButton, UIButtonSize } from "../UIButton/UIButton";
+import { UIRadioVariant } from "../UIRadioGroup/UIRadioGroup";
 import cls from "./UIRadio.module.scss";
 
-export enum UIRadioVariant {
-    DEFAULT = "default",
-    BUTTON = "button",
-}
 type UIRadioProps<T> = {
     name: string;
     value: T;
@@ -17,7 +13,7 @@ type UIRadioProps<T> = {
     className?: string;
 };
 
-export const UIRadio = <T extends string>({
+export const UIRadio = <T extends string | number>({
     name,
     value,
     label,
@@ -26,28 +22,51 @@ export const UIRadio = <T extends string>({
     onChange,
     className,
 }: UIRadioProps<T>) => {
-    const UIRadioClasses = classNames(cls["ui-radio"], {}, [
-        className,
-        cls[`variant-${variant}`],
-    ]);
+    const UIRadioClasses = classNames(
+        cls["ui-radio"],
+        {
+            [cls["ui-radio_active"]]: checked,
+        },
+        [className, cls[`variant-${variant}`]]
+    );
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value as T);
+    const onChangeHandler = () => {
+        onChange(value);
     };
+
+    if (variant === UIRadioVariant.BUTTON) {
+        return (
+            <div className={UIRadioClasses}>
+                <input
+                    className={cls["ui-radio__control"]}
+                    type="radio"
+                    name={name}
+                    value={value}
+                    checked={checked}
+                    onChange={onChangeHandler}
+                />
+                <UIButton
+                    size={UIButtonSize.LG}
+                    className={cls["ui-radio__btn"]}
+                    onClick={onChangeHandler}
+                >
+                    {label}
+                </UIButton>
+            </div>
+        );
+    }
+
     return (
         <label className={UIRadioClasses}>
             <input
-                className={classNames(cls["ui-radio__control"])}
+                className={cls["ui-radio__control"]}
                 type="radio"
                 name={name}
                 value={value}
                 checked={checked}
                 onChange={onChangeHandler}
             />
-            {variant === UIRadioVariant.BUTTON && (
-                <UIButton onClick={() => {}}>Button</UIButton>
-            )}
-            {label}
+            <span hidden>{label}</span>
         </label>
     );
 };

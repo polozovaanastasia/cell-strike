@@ -4,22 +4,44 @@ import {
     UIButtonSize,
     UIButtonType,
 } from "../../ui/UIButton/UIButton";
-import { EnemyInputModes } from "../Game";
+import {
+    OptionType,
+    UIRadioGroup,
+    UIRadioVariant,
+} from "../../ui/UIRadioGroup/UIRadioGroup";
 import { EnemyFileInput } from "./EnemyFileInput/EnemyFileInput";
 import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
 import cls from "./SettingsForm.module.scss";
 
+enum EnemyInputModes {
+    URL = "url",
+    UPLOAD = "upload",
+    // SRC = "src",
+}
+
+const enemyInputModes: OptionType<EnemyInputModes>[] = [
+    {
+        value: EnemyInputModes.URL,
+        label: "Вставить ссылку на изображение",
+    },
+    {
+        value: EnemyInputModes.UPLOAD,
+        label: "Загрузить изображение с компьютера",
+    },
+    // {
+    //     value: EnemyInputModes.SRC,
+    //     label: "Загрузить изображение из источника",
+    // },
+];
+
 type SettingsFormProps = {
-    enemyInputMode: EnemyInputModes | null;
     setEnemy: (url: string) => void;
     startGame: (isStarted: boolean) => void;
 };
 
-export const SettingsForm = ({
-    enemyInputMode,
-    setEnemy,
-    startGame,
-}: SettingsFormProps) => {
+export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
+    const [enemyInputMode, setEnemyInputMode] =
+        useState<EnemyInputModes | null>(null);
     const [isEnemySelected, setIsEnemySelected] = useState<boolean>(false);
 
     const onEnemySelectHandler = (src: string) => {
@@ -32,6 +54,14 @@ export const SettingsForm = ({
     };
     return (
         <div className={cls["settings-form"]}>
+            <UIRadioGroup
+                variant={UIRadioVariant.BUTTON}
+                name="enemyInputMode"
+                value={enemyInputMode}
+                options={enemyInputModes}
+                onChange={setEnemyInputMode}
+            />
+
             {enemyInputMode === EnemyInputModes.URL && (
                 <EnemyUrlInput onEnemySelect={onEnemySelectHandler} />
             )}

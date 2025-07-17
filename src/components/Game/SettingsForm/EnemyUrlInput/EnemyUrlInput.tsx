@@ -35,6 +35,11 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
         }
         onEnemySelect(url);
     };
+
+    const onClearHandler = () => {
+        setUrl("");
+    };
+
     return (
         <div
             className={classNames(EnemyUrlInputClassNames)}
@@ -54,6 +59,8 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
                         Set enemy
                     </UIButton>
                 }
+                allowClear
+                onClear={onClearHandler}
                 placeholder={"Enter image URL"}
             ></UIInput>
             {hasError && <div>Error message</div>}
