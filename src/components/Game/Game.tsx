@@ -19,6 +19,7 @@ export const Game = () => {
         <div className={cls.game}>
             {!isStarted && (
                 <SettingsForm
+                    hasEnemy={!!enemy.url}
                     setEnemy={setEnemy}
                     startGame={onStartGameHandler}
                 />

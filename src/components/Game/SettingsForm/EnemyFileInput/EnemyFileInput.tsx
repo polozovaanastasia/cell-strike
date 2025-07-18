@@ -16,10 +16,14 @@ type FileType = {
 } | null;
 
 type EnemyFileInputProps = {
+    hasEnemy: boolean;
     onEnemySelect: (src: string) => void;
 };
 
-export const EnemyFileInput = ({ onEnemySelect }: EnemyFileInputProps) => {
+export const EnemyFileInput = ({
+    hasEnemy,
+    onEnemySelect,
+}: EnemyFileInputProps) => {
     const [file, setFile] = useState<FileType>(null);
 
     const [hasError, setHasError] = useState<boolean>(false);
@@ -48,6 +52,7 @@ export const EnemyFileInput = ({ onEnemySelect }: EnemyFileInputProps) => {
     const onClearHandler = () => {
         setFile(null);
         setHasError(false);
+        onEnemySelect("");
     };
 
     const validateFileType = (file: FileType) => {
@@ -79,12 +84,12 @@ export const EnemyFileInput = ({ onEnemySelect }: EnemyFileInputProps) => {
                         className={cls["enemy-file-input__preview-label"]}
                         hidden
                     >
-                        Выбран:
+                        {hasEnemy ? `Выбран:` : `Файл с врагом:`}
                     </span>
                     <span className={cls["enemy-file-input__preview-file"]}>
                         {file && file.name}
                     </span>
-                    {file && (
+                    {(file || hasError) && (
                         <UIButton
                             type={UIButtonType.ICON}
                             size={UIButtonSize.S}
@@ -116,6 +121,7 @@ export const EnemyFileInput = ({ onEnemySelect }: EnemyFileInputProps) => {
                     <UIButton
                         className={cls["enemy-file-input__preview-btn"]}
                         size={UIButtonSize.S}
+                        disabled={hasEnemy}
                         onClick={onEnemySelectHandler}
                     >
                         Установить врага

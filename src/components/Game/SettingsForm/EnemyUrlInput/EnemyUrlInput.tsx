@@ -6,10 +6,14 @@ import { useState } from "react";
 import cls from "./EnemyUrlInput.module.scss";
 
 type EnemyUrlInputProps = {
+    hasEnemy: boolean;
     onEnemySelect: (src: string) => void;
 };
 
-export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
+export const EnemyUrlInput = ({
+    hasEnemy,
+    onEnemySelect,
+}: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
     const [hasError, setHasError] = useState<boolean>(false);
     const [hasAnimation, triggerAnimation] = useAnimation();
@@ -38,6 +42,7 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
 
     const onClearHandler = () => {
         setUrl("");
+        onEnemySelect("");
     };
 
     return (
@@ -53,8 +58,9 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
                 onChange={onChangeHandler}
                 addonRight={
                     <UIButton
-                        onClick={onEnemySelectHandler}
                         size={UIButtonSize.S}
+                        disabled={hasEnemy}
+                        onClick={onEnemySelectHandler}
                     >
                         Установить врага
                     </UIButton>

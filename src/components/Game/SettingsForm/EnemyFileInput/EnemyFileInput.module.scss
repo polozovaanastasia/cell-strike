@@ -2,7 +2,6 @@
     animation: 800ms ease-out;
 
     &__container {
-        position: relative;
         display: flex;
         justify-content: end;
         width: 300px;
@@ -27,19 +26,23 @@
     }
     &__preview {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding: 0 5px 0 65px;
         overflow: hidden;
 
         &-file {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-left: 8px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
 
         &-btn {
+            margin: 4px 8px;
             cursor: pointer;
         }
     }
@@ -47,17 +50,16 @@
     &__has-file {
         .enemy-file-input__container {
             width: 450px;
+            padding: 0;
         }
         .enemy-file-input__preview-label {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
             display: flex;
             align-items: center;
+            height: 100%;
             padding: 0 10px;
             border-radius: 6px 0 0 6px;
             background-color: var(--button-color);
+            white-space: nowrap;
             color: var(--font-color);
         }
     }

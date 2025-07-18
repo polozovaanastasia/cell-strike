@@ -9,6 +9,14 @@
         }
     }
 
+    &_disabled .ui-radio__btn {
+        background-color: var(--button-background_disabled);
+
+        &:hover {
+            background-color: var(--button-background_disabled);
+        }
+    }
+
     &.variant-button {
         display: flex;
 

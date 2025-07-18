@@ -17,7 +17,6 @@ import cls from "./SettingsForm.module.scss";
 enum EnemyInputModes {
     URL = "url",
     UPLOAD = "upload",
-    // SRC = "src",
 }
 
 const enemyInputModes: OptionType<EnemyInputModes>[] = [
@@ -30,25 +29,24 @@ const enemyInputModes: OptionType<EnemyInputModes>[] = [
         label: "Загрузить изображение с компьютера",
         // disabled: true,
     },
-    // {
-    //     value: EnemyInputModes.SRC,
-    //     label: "Загрузить изображение из источника",
-    // },
 ];
 
 type SettingsFormProps = {
+    hasEnemy: boolean;
     setEnemy: (url: string) => void;
     startGame: (isStarted: boolean) => void;
 };
 
-export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
+export const SettingsForm = ({
+    hasEnemy,
+    setEnemy,
+    startGame,
+}: SettingsFormProps) => {
     const [enemyInputMode, setEnemyInputMode] =
         useState<EnemyInputModes | null>(null);
-    const [isEnemySelected, setIsEnemySelected] = useState<boolean>(false);
 
     const onEnemySelectHandler = (src: string) => {
         setEnemy(src);
-        setIsEnemySelected(true);
     };
 
     const startGameHandler = () => {
@@ -62,17 +60,23 @@ export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
                 value={enemyInputMode}
                 options={enemyInputModes}
                 onChange={setEnemyInputMode}
-                disabled
+                disabled={hasEnemy}
             />
 
             {enemyInputMode === EnemyInputModes.URL && (
-                <EnemyUrlInput onEnemySelect={onEnemySelectHandler} />
+                <EnemyUrlInput
+                    hasEnemy={hasEnemy}
+                    onEnemySelect={onEnemySelectHandler}
+                />
             )}
             {enemyInputMode === EnemyInputModes.UPLOAD && (
-                <EnemyFileInput onEnemySelect={onEnemySelectHandler} />
+                <EnemyFileInput
+                    hasEnemy={hasEnemy}
+                    onEnemySelect={onEnemySelectHandler}
+                />
             )}
 
-            {isEnemySelected && (
+            {hasEnemy && (
                 <UIButton
                     type={UIButtonType.OUTLINE}
                     size={UIButtonSize.LG}
