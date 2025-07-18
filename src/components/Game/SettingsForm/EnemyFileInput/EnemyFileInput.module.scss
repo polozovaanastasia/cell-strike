@@ -4,7 +4,7 @@
     &__container {
         display: flex;
         justify-content: end;
-        width: 300px;
+        width: 350px;
         padding: 4px 8px;
         border-radius: 7px;
         background-color: var(--input-background);
@@ -31,10 +31,6 @@
         overflow: hidden;
 
         &-file {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
             padding-left: 8px;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -66,7 +62,7 @@
 
     &__has-error {
         .enemy-file-input__preview-file {
-            color: rgb(142, 7, 7);
+            color: rgb(215, 4, 4);
         }
     }
 }
