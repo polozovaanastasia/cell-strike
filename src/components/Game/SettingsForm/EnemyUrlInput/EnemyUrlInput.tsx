@@ -56,14 +56,14 @@ export const EnemyUrlInput = ({ onEnemySelect }: EnemyUrlInputProps) => {
                         onClick={onEnemySelectHandler}
                         size={UIButtonSize.S}
                     >
-                        Set enemy
+                        Установить врага
                     </UIButton>
                 }
                 allowClear
                 onClear={onClearHandler}
-                placeholder={"Enter image URL"}
+                placeholder={"Введите URL изображения"}
             ></UIInput>
-            {hasError && <div>Error message</div>}
+            {hasError && <div>Пожалуйста, введите URL изображения.</div>}
         </div>
     );
 };

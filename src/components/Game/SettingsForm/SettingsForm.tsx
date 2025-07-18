@@ -28,6 +28,7 @@ const enemyInputModes: OptionType<EnemyInputModes>[] = [
     {
         value: EnemyInputModes.UPLOAD,
         label: "Загрузить изображение с компьютера",
+        // disabled: true,
     },
     // {
     //     value: EnemyInputModes.SRC,
@@ -61,6 +62,7 @@ export const SettingsForm = ({ setEnemy, startGame }: SettingsFormProps) => {
                 value={enemyInputMode}
                 options={enemyInputModes}
                 onChange={setEnemyInputMode}
+                disabled
             />
 
             {enemyInputMode === EnemyInputModes.URL && (

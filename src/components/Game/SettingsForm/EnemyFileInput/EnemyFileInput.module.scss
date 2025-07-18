@@ -1,18 +1,17 @@
 .enemy-file-input {
-    position: relative;
-    display: flex;
-    justify-content: end;
-    max-width: 300px;
-    border-radius: 7px;
-    background-color: var(--input-background);
-    font-size: var(--font-size-s);
-    color: var(--input-color);
-    transition: max-width ease-in-out 0.4s;
+    animation: 800ms ease-out;
 
-    &__has-file {
-        max-width: 350px;
-        width: 350px;
+    &__container {
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 300px;
         padding: 4px 8px;
+        border-radius: 7px;
+        background-color: var(--input-background);
+        font-size: var(--font-size-s);
+        color: var(--input-color);
+        transition: width ease-in-out 0.5s;
     }
 
     &__button {
@@ -31,9 +30,25 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        padding-left: 65px;
+        padding: 0 5px 0 65px;
+        overflow: hidden;
 
-        &-label {
+        &-file {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &-btn {
+            cursor: pointer;
+        }
+    }
+
+    &__has-file {
+        .enemy-file-input__container {
+            width: 450px;
+        }
+        .enemy-file-input__preview-label {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -45,15 +60,11 @@
             background-color: var(--button-color);
             color: var(--font-color);
         }
+    }
 
-        &-file {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        &-btn {
-            cursor: pointer;
+    &__has-error {
+        .enemy-file-input__preview-file {
+            color: rgb(142, 7, 7);
         }
     }
 }

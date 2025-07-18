@@ -8,6 +8,7 @@ type UIRadioProps<T> = {
     value: T;
     label: string;
     checked: boolean;
+    disabled?: boolean;
     variant?: UIRadioVariant;
     onChange: (value: T) => void;
     className?: string;
@@ -18,6 +19,7 @@ export const UIRadio = <T extends string | number>({
     value,
     label,
     checked,
+    disabled = false,
     variant = UIRadioVariant.DEFAULT,
     onChange,
     className,
@@ -26,6 +28,7 @@ export const UIRadio = <T extends string | number>({
         cls["ui-radio"],
         {
             [cls["ui-radio_active"]]: checked,
+            [cls["ui-radio_disabled"]]: disabled,
         },
         [className, cls[`variant-${variant}`]]
     );
@@ -43,12 +46,14 @@ export const UIRadio = <T extends string | number>({
                     name={name}
                     value={value}
                     checked={checked}
+                    disabled={disabled}
                     onChange={onChangeHandler}
                     hidden
                 />
                 <UIButton
-                    size={UIButtonSize.LG}
                     className={cls["ui-radio__btn"]}
+                    size={UIButtonSize.LG}
+                    disabled={disabled}
                     onClick={onChangeHandler}
                 >
                     {label}

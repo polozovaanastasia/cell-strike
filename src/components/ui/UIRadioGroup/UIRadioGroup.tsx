@@ -10,12 +10,14 @@ export enum UIRadioVariant {
 export type OptionType<T = string> = {
     value: T;
     label: string;
+    disabled?: boolean;
 };
 
 type UIRadioGroupProps<T = string> = {
     name: string;
     value: T | null;
     options: OptionType<T>[];
+    disabled?: boolean;
     variant?: UIRadioVariant;
     onChange: (value: T) => void;
     className?: string;
@@ -25,6 +27,7 @@ export const UIRadioGroup = <T extends string | number>({
     name,
     value,
     options,
+    disabled = false,
     variant = UIRadioVariant.DEFAULT,
     onChange,
     className,
@@ -43,6 +46,7 @@ export const UIRadioGroup = <T extends string | number>({
                     value={option.value}
                     label={option.label}
                     checked={value === option.value}
+                    disabled={disabled || option.disabled}
                     variant={variant}
                     onChange={onChange}
                 />
