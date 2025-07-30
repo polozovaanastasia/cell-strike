@@ -5,11 +5,12 @@ import {
     UIButtonType,
 } from "@/components/ui/UIButton/UIButton";
 import { useAnimation } from "@/hooks/useAnimation";
+import { useValidators } from "@/hooks/useValidators";
 import { classNames } from "@/utils/classNames";
 import { useState } from "react";
 import cls from "./EnemyFileInput.module.scss";
 
-type FileType = {
+export type FileType = {
     name: string;
     src: string;
     type: string;
@@ -27,6 +28,7 @@ export const EnemyFileInput = ({
     const [file, setFile] = useState<FileType>(null);
 
     const [hasError, setHasError] = useState<boolean>(false);
+    const { validateFileType } = useValidators();
     const [hasAnimation, triggerAnimation] = useAnimation();
 
     const EnemyFileInputClassNames = classNames(
@@ -55,14 +57,14 @@ export const EnemyFileInput = ({
         onEnemySelect("");
     };
 
-    const validateFileType = (file: FileType) => {
-        let fileIsImage;
+    // const validateFileType = (file: FileType) => {
+    //     let isImageFile;
 
-        if (file) {
-            fileIsImage = file.type.startsWith("image/");
-        }
-        return fileIsImage;
-    };
+    //     if (file) {
+    //         isImageFile = file.type.startsWith("image/");
+    //     }
+    //     return isImageFile;
+    // };
 
     const onEnemySelectHandler = () => {
         const fileIsValid = validateFileType(file);

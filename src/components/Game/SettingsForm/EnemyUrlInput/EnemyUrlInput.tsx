@@ -1,6 +1,7 @@
 import { UIButton, UIButtonSize } from "@/components/ui/UIButton/UIButton";
 import { UIInput } from "@/components/ui/UIInput/UIInput";
 import { useAnimation } from "@/hooks/useAnimation";
+import { useValidators } from "@/hooks/useValidators";
 import { classNames } from "@/utils/classNames";
 import { useState } from "react";
 import cls from "./EnemyUrlInput.module.scss";
@@ -16,6 +17,7 @@ export const EnemyUrlInput = ({
 }: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const { validateImageUrl } = useValidators();
     const [animationIsActive, triggerAnimationStart, triggerAnimationEnd] =
         useAnimation();
 
@@ -28,35 +30,23 @@ export const EnemyUrlInput = ({
         []
     );
 
-    const validateImageUrl = (url: string) => {
-        return new Promise((resolve, reject) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => reject(false);
-            img.src = url;
-        });
+    const onEnemySelectHandler = async () => {
+        const isUrlValid = await validateImageUrl(url);
+        const errorMessage = !url
+            ? "Пожалуйста, введите URL изображения."
+            : "Некорректный URL изображения";
+
+        if (!url || !isUrlValid) {
+            setError(errorMessage);
+            triggerAnimationStart();
+            return;
+        }
+
+        onEnemySelect(url);
     };
 
     const onChangeHandler = (url: string) => {
         setUrl(url);
-    };
-
-    const onEnemySelectHandler = () => {
-        if (!url) {
-            setError("Пожалуйста, введите URL изображения.");
-            triggerAnimationStart();
-            return;
-        }
-        validateImageUrl(url)
-            .then(() => {
-                console.log(`SUCCESS! ${url} is valid`);
-                onEnemySelect(url);
-            })
-            .catch(() => {
-                console.log(`ERROR! ${url} is not valid`);
-                setError("Некорректный URL изображения");
-                triggerAnimationStart();
-            });
     };
 
     const onClearHandler = () => {
