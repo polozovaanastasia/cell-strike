@@ -15,17 +15,27 @@ export const EnemyUrlInput = ({
     onEnemySelect,
 }: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
-    const [hasError, setHasError] = useState<boolean>(false);
-    const [hasAnimation, triggerAnimation] = useAnimation();
+    const [error, setError] = useState<string>("");
+    const [animationIsActive, triggerAnimationStart, triggerAnimationEnd] =
+        useAnimation();
 
     const EnemyUrlInputClassNames = classNames(
         cls["enemy-url-input"],
         {
-            "animation-shake": hasAnimation,
-            [cls["enemy-url-input__has-error"]]: hasError,
+            "animation-shake": animationIsActive,
+            [cls["enemy-url-input__has-error"]]: !!error,
         },
         []
     );
+
+    const validateImageUrl = (url: string) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => reject(false);
+            img.src = url;
+        });
+    };
 
     const onChangeHandler = (url: string) => {
         setUrl(url);
@@ -33,11 +43,20 @@ export const EnemyUrlInput = ({
 
     const onEnemySelectHandler = () => {
         if (!url) {
-            setHasError(true);
-            triggerAnimation();
+            setError("Пожалуйста, введите URL изображения.");
+            triggerAnimationStart();
             return;
         }
-        onEnemySelect(url);
+        validateImageUrl(url)
+            .then(() => {
+                console.log(`SUCCESS! ${url} is valid`);
+                onEnemySelect(url);
+            })
+            .catch(() => {
+                console.log(`ERROR! ${url} is not valid`);
+                setError("Некорректный URL изображения");
+                triggerAnimationStart();
+            });
     };
 
     const onClearHandler = () => {
@@ -49,8 +68,9 @@ export const EnemyUrlInput = ({
         <div
             className={classNames(EnemyUrlInputClassNames)}
             onBlur={() => {
-                setHasError(false);
+                setError("");
             }}
+            onAnimationEnd={triggerAnimationEnd}
         >
             <UIInput
                 className={cls["enemy-url-input__control"]}
@@ -69,7 +89,7 @@ export const EnemyUrlInput = ({
                 onClear={onClearHandler}
                 placeholder={"Введите URL изображения"}
             ></UIInput>
-            {hasError && <div>Пожалуйста, введите URL изображения.</div>}
+            {error && <div>{error}</div>}
         </div>
     );
 };

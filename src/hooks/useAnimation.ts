@@ -1,14 +1,18 @@
 import { useCallback, useState } from "react";
 
-export const useAnimation = (): [boolean, () => void] => {
-    const [hasAnimation, setHasAnimation] = useState(false);
+export const useAnimation = (): [boolean, () => void, () => void] => {
+    const [isAnimating, setIsAnimating] = useState(false);
 
-    const triggerAnimation = useCallback(() => {
-        setHasAnimation(false);
+    const triggerAnimationStart = useCallback(() => {
+        setIsAnimating(false);
         requestAnimationFrame(() => {
-            setHasAnimation(true);
+            setIsAnimating(true);
         });
     }, []);
 
-    return [hasAnimation, triggerAnimation];
+    const triggerAnimationEnd = useCallback(() => {
+        setIsAnimating(false);
+    }, []);
+
+    return [isAnimating, triggerAnimationStart, triggerAnimationEnd];
 };
