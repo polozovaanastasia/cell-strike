@@ -38,4 +38,8 @@
 
     /* UIRadio */
     --radio-border-color: #ffffff;
+
+    /* UILoader */
+    --loader-color: #ffffff;
+    --loader-color_inverted: #333536;
 }

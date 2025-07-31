@@ -2,6 +2,13 @@
     width: 350px;
     animation: 800ms ease-out;
 
+    &__btn {
+        width: 162px;
+        justify-content: center;
+    }
     &__has-error {
+    }
+
+    &__is-loading {
     }
 }

@@ -3,17 +3,13 @@ import { FileType } from "@/components/Game/SettingsForm/EnemyFileInput/EnemyFil
 export const useValidators = () => {
     const validateImageUrl = async (url: string) => {
         const isImageUrl = await new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => resolve(true);
-            img.onerror = () => resolve(false);
-            img.src = url;
+            setTimeout(() => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = url;
+            }, 500);
         });
-
-        // if (!isImageUrl) {
-        //     console.log(`ERROR! ${url} is not valid`);
-        //     setError("Некорректный URL изображения");
-        //     triggerAnimationStart();
-        // }
 
         return isImageUrl;
     };

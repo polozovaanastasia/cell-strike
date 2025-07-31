@@ -26,8 +26,8 @@ export const EnemyFileInput = ({
     onEnemySelect,
 }: EnemyFileInputProps) => {
     const [file, setFile] = useState<FileType>(null);
-
     const [hasError, setHasError] = useState<boolean>(false);
+
     const { validateFileType } = useValidators();
     const [hasAnimation, triggerAnimation] = useAnimation();
 

@@ -1,5 +1,6 @@
 import { UIButton, UIButtonSize } from "@/components/ui/UIButton/UIButton";
 import { UIInput } from "@/components/ui/UIInput/UIInput";
+import { UILoader, UILoaderSize } from "@/components/ui/UILoader/UILoader";
 import { useAnimation } from "@/hooks/useAnimation";
 import { useValidators } from "@/hooks/useValidators";
 import { classNames } from "@/utils/classNames";
@@ -17,6 +18,8 @@ export const EnemyUrlInput = ({
 }: EnemyUrlInputProps) => {
     const [url, setUrl] = useState<string>("");
     const [error, setError] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const { validateImageUrl } = useValidators();
     const [animationIsActive, triggerAnimationStart, triggerAnimationEnd] =
         useAnimation();
@@ -25,13 +28,17 @@ export const EnemyUrlInput = ({
         cls["enemy-url-input"],
         {
             "animation-shake": animationIsActive,
+            [cls["enemy-url-input__is-loading"]]: isLoading,
             [cls["enemy-url-input__has-error"]]: !!error,
         },
         []
     );
 
     const onEnemySelectHandler = async () => {
+        setIsLoading(true);
         const isUrlValid = await validateImageUrl(url);
+        setIsLoading(false);
+
         const errorMessage = !url
             ? "Пожалуйста, введите URL изображения."
             : "Некорректный URL изображения";
@@ -52,6 +59,7 @@ export const EnemyUrlInput = ({
     const onClearHandler = () => {
         setUrl("");
         onEnemySelect("");
+        setIsLoading(false);
     };
 
     return (
@@ -71,8 +79,13 @@ export const EnemyUrlInput = ({
                         size={UIButtonSize.S}
                         disabled={hasEnemy}
                         onClick={onEnemySelectHandler}
+                        className={cls["enemy-url-input__btn"]}
                     >
-                        Установить врага
+                        {isLoading ? (
+                            <UILoader size={UILoaderSize.S} />
+                        ) : (
+                            "Установить врага"
+                        )}
                     </UIButton>
                 }
                 allowClear
