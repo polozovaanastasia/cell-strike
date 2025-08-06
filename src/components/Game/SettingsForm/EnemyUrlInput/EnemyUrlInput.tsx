@@ -21,23 +21,40 @@ export const EnemyUrlInput = ({
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { validateImageUrl } = useValidators();
-    const [animationIsActive, triggerAnimationStart, triggerAnimationEnd] =
+    const [isAnimating, triggerAnimationStart, triggerAnimationEnd] =
         useAnimation();
 
     const EnemyUrlInputClassNames = classNames(
         cls["enemy-url-input"],
         {
-            "animation-shake": animationIsActive,
+            "animation-shake": isAnimating,
             [cls["enemy-url-input__is-loading"]]: isLoading,
             [cls["enemy-url-input__has-error"]]: !!error,
         },
         []
     );
 
-    const onEnemySelectHandler = async () => {
-        setIsLoading(true);
+    const validateWithDelay = async () => {
+        const MIN_LOADING_TIME = 300;
+        const startTime = Date.now();
+
         const isUrlValid = await validateImageUrl(url);
+        const elapsedTime = Date.now() - startTime;
+
+        setIsLoading(true);
+
+        if (elapsedTime < MIN_LOADING_TIME) {
+            await new Promise((resolve) =>
+                setTimeout(resolve, MIN_LOADING_TIME)
+            );
+        }
+
         setIsLoading(false);
+        return isUrlValid;
+    };
+
+    const onEnemySelectHandler = async () => {
+        const isUrlValid = await validateWithDelay();
 
         const errorMessage = !url
             ? "Пожалуйста, введите URL изображения."

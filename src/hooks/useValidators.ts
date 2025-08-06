@@ -3,12 +3,10 @@ import { FileType } from "@/components/Game/SettingsForm/EnemyFileInput/EnemyFil
 export const useValidators = () => {
     const validateImageUrl = async (url: string) => {
         const isImageUrl = await new Promise((resolve) => {
-            // setTimeout(() => {
-                const img = new Image();
-                img.onload = () => resolve(true);
-                img.onerror = () => resolve(false);
-                img.src = url;
-            // }, 500);
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
         });
 
         return isImageUrl;
