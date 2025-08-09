@@ -14,6 +14,7 @@ export type EnemyStateType = {
 
 export type GameStateType = {
     enemy: EnemyStateType;
+    location: number;
     enemyUrl: string;
     enemyIndex: EnemyIndexType;
     hits: number;
@@ -25,6 +26,7 @@ export const initGameState: GameStateType = {
         url: "",
         index: null,
     },
+    location: 1,
     enemyUrl: "",
     enemyIndex: null,
     hits: 0,
@@ -35,6 +37,9 @@ const gameReducer = (state: GameStateType, action: GameActionsType) => {
     switch (action.type) {
         case GameActionType.SET_ENEMY_URL:
             return { ...state, enemy: { ...state.enemy, url: action.url } };
+
+        case GameActionType.SET_LOCATION:
+            return { ...state, location: action.value };
 
         case GameActionType.TICK:
             return {
@@ -60,6 +65,13 @@ const setEnemyUrlAC = (url: string): GameActionsType => {
     };
 };
 
+const setLocationAC = (value: number): GameActionsType => {
+    return {
+        type: GameActionType.SET_LOCATION,
+        value,
+    };
+};
+
 const tickAC = (newEnemyIndex: number): GameActionsType => {
     return {
         type: GameActionType.TICK,
@@ -78,7 +90,7 @@ const missesAC = (): GameActionsType => {
 };
 
 export const useGameState = () => {
-    const [{ enemy, hits, misses }, dispatch] = useReducer(
+    const [{ enemy, location, hits, misses }, dispatch] = useReducer(
         gameReducer,
         initGameState
     );
@@ -93,6 +105,10 @@ export const useGameState = () => {
 
     const setEnemy = useCallback((url: string) => {
         dispatch(setEnemyUrlAC(url));
+    }, []);
+
+    const setLocation = useCallback((value: number) => {
+        dispatch(setLocationAC(value));
     }, []);
 
     const getRandomIndex = () => {
@@ -145,10 +161,12 @@ export const useGameState = () => {
 
     return {
         enemy,
+        location,
         hits,
         misses,
         gameCells,
         setEnemy,
+        setLocation,
         startGame,
         updateHits,
     };

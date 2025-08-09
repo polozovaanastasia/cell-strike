@@ -11,6 +11,7 @@ type UIRadioProps<T> = {
     disabled?: boolean;
     variant?: UIRadioVariant;
     onChange: (value: T) => void;
+    children?: React.ReactNode;
     className?: string;
 };
 
@@ -22,6 +23,7 @@ export const UIRadio = <T extends string | number>({
     disabled = false,
     variant = UIRadioVariant.DEFAULT,
     onChange,
+    children,
     className,
 }: UIRadioProps<T>) => {
     const UIRadioClasses = classNames(
@@ -72,7 +74,7 @@ export const UIRadio = <T extends string | number>({
                 checked={checked}
                 onChange={onChangeHandler}
             />
-            <span>{label}</span>
+            {variant === UIRadioVariant.CARDS ? children : <span>{label}</span>}
         </label>
     );
 };

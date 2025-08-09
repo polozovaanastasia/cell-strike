@@ -5,41 +5,29 @@ import {
 } from "@/components/ui/UIButton/UIButton";
 
 import {
-    OptionType,
     UIRadioGroup,
     UIRadioVariant,
 } from "@/components/ui/UIRadioGroup/UIRadioGroup";
+import { EnemyInputModes } from "@/types";
 import { useState } from "react";
 import { EnemyFileInput } from "./EnemyFileInput/EnemyFileInput";
 import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
 import cls from "./SettingsForm.module.scss";
-
-enum EnemyInputModes {
-    URL = "url",
-    UPLOAD = "upload",
-}
-
-const enemyInputModes: OptionType<EnemyInputModes>[] = [
-    {
-        value: EnemyInputModes.URL,
-        label: "Вставить ссылку на изображение",
-    },
-    {
-        value: EnemyInputModes.UPLOAD,
-        label: "Загрузить изображение с компьютера",
-        // disabled: true,
-    },
-];
+import { enemyInputModes, gameLocations } from "./options";
 
 type SettingsFormProps = {
     hasEnemy: boolean;
     setEnemy: (url: string) => void;
+    location: number;
+    setLocation: (value: number) => void;
     startGame: (isStarted: boolean) => void;
 };
 
 export const SettingsForm = ({
     hasEnemy,
     setEnemy,
+    location,
+    setLocation,
     startGame,
 }: SettingsFormProps) => {
     const [enemyInputMode, setEnemyInputMode] =
@@ -52,6 +40,7 @@ export const SettingsForm = ({
     const startGameHandler = () => {
         startGame(true);
     };
+
     return (
         <div className={cls["settings-form"]}>
             <UIRadioGroup
@@ -74,6 +63,30 @@ export const SettingsForm = ({
                     hasEnemy={hasEnemy}
                     onEnemySelect={onEnemySelectHandler}
                 />
+            )}
+
+            {hasEnemy && (
+                <UIRadioGroup
+                    options={gameLocations}
+                    name="location"
+                    value={location}
+                    onChange={setLocation}
+                    variant={UIRadioVariant.CARDS}
+                    renderOption={(option) => (
+                        <div>
+                            <div
+                                style={{
+                                    background: `url(${option.bgPath})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    padding: "30px",
+                                }}
+                            >
+                                {option.label} from SettingsForm components
+                            </div>
+                        </div>
+                    )}
+                ></UIRadioGroup>
             )}
 
             {hasEnemy && (
