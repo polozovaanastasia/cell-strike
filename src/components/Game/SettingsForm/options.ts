@@ -5,7 +5,7 @@ import { EnemyInputModes } from "@/types";
 
 type EnemyInputModeType = OptionType<EnemyInputModes>;
 type GameLocationType = OptionType<number> & {
-    bgPath: string;
+    locationImageUrl: string;
 };
 
 export const enemyInputModes: EnemyInputModeType[] = [
@@ -23,11 +23,11 @@ export const gameLocations: GameLocationType[] = [
     {
         value: 1,
         label: "Один",
-        bgPath: spaceBgImage,
+        locationImageUrl: spaceBgImage,
     },
     {
         value: 2,
         label: "Два",
-        bgPath: natureBgImage,
+        locationImageUrl: natureBgImage,
     },
 ];
