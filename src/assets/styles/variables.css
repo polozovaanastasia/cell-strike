@@ -1,6 +1,13 @@
 :root {
+    /* Base colors */
+    --primary-color-dark: #333536;
+    --primary-color-light: #fdfdfd;
+    --color-white: #ffffff;
+
+    /* Typography */
     --font-family-main: "Roboto", sans-serif;
-    --font-color: #ffffff;
+    --font-color-light: var(--color-white);
+    --font-color-dark: #252525;
 
     /* Font s-size */
     --font-size-s: 12px;
@@ -18,28 +25,35 @@
     --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
 
     /* UIButton */
-    --button-color: #333536;
-    --button_outline-color: #262728;
-    --button-color_hover: #3f4142;
-    --button-color_hover-alpha: rgba(58, 61, 62, 0.5);
-    --button-color_active: #1e2021;
-    --button-background_disabled: rgb(114 114 114);
-    --button-color_disabled: rgb(189 184 184);
+    --button-color: var(--primary-color-dark);
+    --button-outline-color: var(--primary-color-dark);
+    --button-color-hover: #3f4142;
+    --button-color-hover-alpha: rgba(58, 61, 62, 0.5);
+    --button-color-active: #1e2021;
+    --button-background-disabled: rgb(114 114 114);
+    --button-color-disabled: rgb(189 184 184);
 
     /* UIInput */
-    --input-background: #fdfdfd;
-    --input-background_focus: #fdfdfd;
-    --input-color: #252525;
-    --input-color_focus: #333536;
-    --input-border-color: #fdfdfd;
-    --input-border-color_focus: #333536;
-    --input-background_disabled: red;
-    --input-color_disabled: green;
+    --input-color: var(--font-color-dark);
+    --input-background: var(--primary-color-light);
+    --input-background-focus: var(--primary-color-light);
+    --input-outline-color: var(--primary-color-dark);
+    --input-border-color: var(--primary-color-light);
+    --input-background-disabled: red;
+    --input-color-disabled: green;
 
     /* UIRadio */
-    --radio-border-color: #ffffff;
+    --radio-border-color: var(--color-white);
 
     /* UILoader */
-    --loader-color: #ffffff;
-    --loader-color_inverted: #333536;
+    --loader-color: var(--color-white);
+    --loader-color-inverted: var(--primary-color-dark);
+
+    /* UIRadio */
+    --radio-color: var(--font-color-dark);
+    --radio-marker-color: var(--primary-color-dark);
+    --radio-marker-hover: #3f4142;
+    --radio-outline-color: var(--primary-color-dark);
+    /* --radio-outline-color: ##f6f8f7; */
+    --radio-background-color: var(--primary-color-light);
 }

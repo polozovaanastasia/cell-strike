@@ -1,0 +1,65 @@
+.location-selector {
+    display: flex;
+    flex-direction: column;
+
+    &__option {
+        display: flex;
+        position: relative;
+        padding: 60px 80px;
+
+        &-img {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--color-white);
+            background-color: var(--color-white);
+            z-index: 1;
+        }
+
+        &.option-bg_space,
+        &.option-bg_nature {
+            filter: grayscale(1);
+            transition: filter 0.2s ease-in;
+
+            &::after {
+                content: "";
+                display: block;
+                position: absolute;
+                inset: 0;
+                background-size: cover;
+                background-position: center;
+                transition: transform 0.2s ease-in;
+                z-index: 0;
+            }
+
+            &:hover::after {
+                transform: scale(1.1);
+            }
+        }
+
+        &.option-bg_space::after {
+            background-image: url(../../../../assets/images/location-bg-space.jpg);
+        }
+
+        &.option-bg_nature::after {
+            background-image: url(../../../../assets/images/location-bg-nature.jpg);
+        }
+
+        &_selected {
+            &.option-bg_space,
+            &.option-bg_nature {
+                filter: grayscale(0);
+
+                &::after {
+                    transform: scale(1.1);
+                }
+            }
+        }
+    }
+}
+
+.location__default-cards label {
+    // background-image: url(../../../../assets/images/location-bg-space.jpg);
+}

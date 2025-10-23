@@ -1,4 +1,4 @@
-import { FileType } from "@/components/Game/SettingsForm/EnemyFileInput/EnemyFileInput";
+import { FileType } from "@/components/Game/GameSetup/EnemyFileInput/EnemyFileInput";
 
 export const useValidators = () => {
     const validateImageUrl = async (url: string) => {

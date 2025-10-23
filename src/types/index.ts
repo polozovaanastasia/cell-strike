@@ -20,3 +20,9 @@ export enum EnemyInputModes {
     URL = "url",
     UPLOAD = "upload",
 }
+
+export enum GameSetupStepType {
+    ENEMY = "ENEMY",
+    LOCATION = "LOCATION",
+    READY = "READY",
+}

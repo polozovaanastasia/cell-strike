@@ -1,28 +1,46 @@
 .ui-radio {
+    display: flex;
+    // flex-direction: row-reverse;
+    gap: 5px;
+    color: var(--radio-color);
+    overflow: hidden;
     cursor: pointer;
 
-    &_active .ui-radio__btn {
-        background-color: var(--button-color_active);
+    &__control {
+        display: none;
+    }
 
-        &:hover {
-            background-color: var(--button-color_active);
+    &__marker {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        border: 1px solid var(--radio-marker-color);
+        border-radius: 50%;
+
+        // убираем растяжение маркера:
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        will-change: transform;
+    }
+
+    &:hover {
+        .ui-radio__marker {
+            border-color: var(--radio-marker-hover);
         }
     }
 
     &_disabled .ui-radio__btn {
-        background-color: var(--button-background_disabled);
+        background-color: var(--button-background-disabled);
 
         &:hover {
-            background-color: var(--button-background_disabled);
+            background-color: var(--button-background-disabled);
         }
     }
 
     &.variant-button {
         display: flex;
-
-        .ui-radio__control {
-            display: none;
-        }
 
         .ui-radio__btn {
             border-radius: 0;
@@ -36,6 +54,68 @@
         &:last-child .ui-radio__btn {
             border-radius: 0 7px 7px 0;
             border-right: none;
+        }
+    }
+
+    &.variant-cards {
+        flex-direction: initial;
+        border: 2px solid transparent;
+        border-radius: 10px;
+        background-size: cover;
+        background-color: var(--radio-background-color);
+
+        .ui-radio {
+            &__label {
+                padding: 10px;
+            }
+
+            &__control {
+                display: none;
+            }
+
+            &__marker {
+                margin: 5px;
+            }
+
+            &__default-card {
+                display: flex;
+                justify-content: space-between;
+                width: 150px;
+                color: inherit;
+
+                & + .ui-radio__marker {
+                    display: flex;
+                    margin: 3px;
+                    border-color: inherit;
+                }
+            }
+        }
+    }
+
+    &_selected {
+        & .ui-radio__marker::after {
+            content: "";
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--radio-marker-color);
+        }
+
+        & .ui-radio__btn {
+            background-color: var(--button-color-active);
+
+            &:hover {
+                background-color: var(--button-color-active);
+            }
+        }
+
+        &.ui-radio_disabled .ui-radio__btn {
+            background-color: var(--button-background-disabled);
+        }
+
+        &.variant-cards {
+            border: 2px solid var(--radio-outline-color);
         }
     }
 }

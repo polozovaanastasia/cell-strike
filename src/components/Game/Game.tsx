@@ -1,10 +1,9 @@
 import { useGameState } from "@/hooks/useGameState";
 import { useState } from "react";
-import { animals, List, people } from "../ui/UIRadio/List";
 import cls from "./Game.module.scss";
 import { GameGrid } from "./GameGrid/GameGrid";
+import { GameSetup } from "./GameSetup/GameSetup";
 import { GameStats } from "./GameStats/GameStats";
-import { SettingsForm } from "./SettingsForm/SettingsForm";
 
 export const Game = () => {
     const {
@@ -27,31 +26,9 @@ export const Game = () => {
 
     return (
         <div className={cls.game}>
-            <List
-                items={animals}
-                render={(animal) => (
-                    <div>
-                        Животное:
-                        <div>ID: {animal.id}</div>
-                        <div>NAME: {animal.name}</div>
-                        <div>TYPE: {animal.type}</div>
-                    </div>
-                )}
-            />
-            _______
-            <List
-                items={people}
-                render={(person) => (
-                    <div>
-                        Человек:
-                        <div>ID: {person.id}</div>
-                        <div>NAME: {person.name}</div>
-                    </div>
-                )}
-            />
             {!isStarted && (
-                <SettingsForm
-                    hasEnemy={!!enemy.url}
+                <GameSetup
+                    enemyImageUrl={enemy.url}
                     setEnemy={setEnemy}
                     location={location}
                     setLocation={setLocation}

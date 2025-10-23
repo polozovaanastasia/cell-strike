@@ -7,7 +7,7 @@ type UIRadioProps<T> = {
     name: string;
     value: T;
     label: string;
-    checked: boolean;
+    selected: boolean;
     disabled?: boolean;
     variant?: UIRadioVariant;
     onChange: (value: T) => void;
@@ -15,11 +15,26 @@ type UIRadioProps<T> = {
     className?: string;
 };
 
+type UIRadioViewProps = {
+    label: string;
+};
+
+type UIRadioDefaultProps = UIRadioViewProps;
+
+type UIRadioButtonProps = {
+    disabled?: boolean;
+    onClick: () => void;
+} & UIRadioViewProps;
+
+type UIRadioCardProps = {
+    children?: React.ReactNode;
+} & UIRadioViewProps;
+
 export const UIRadio = <T extends string | number>({
     name,
     value,
     label,
-    checked,
+    selected,
     disabled = false,
     variant = UIRadioVariant.DEFAULT,
     onChange,
@@ -29,39 +44,31 @@ export const UIRadio = <T extends string | number>({
     const UIRadioClasses = classNames(
         cls["ui-radio"],
         {
-            [cls["ui-radio_active"]]: checked,
+            [cls["ui-radio_selected"]]: selected,
             [cls["ui-radio_disabled"]]: disabled,
         },
         [className, cls[`variant-${variant}`]]
     );
 
     const onChangeHandler = () => {
+        if (disabled) return;
         onChange(value);
     };
 
-    if (variant === UIRadioVariant.BUTTON) {
-        return (
-            <div className={UIRadioClasses}>
-                <input
-                    className={cls["ui-radio__control"]}
-                    type="radio"
-                    name={name}
-                    value={value}
-                    checked={checked}
-                    disabled={disabled}
-                    onChange={onChangeHandler}
-                    hidden
-                />
-                <UIButton
-                    className={cls["ui-radio__btn"]}
-                    size={UIButtonSize.LG}
-                    disabled={disabled}
-                    onClick={onChangeHandler}
-                >
-                    {label}
-                </UIButton>
-            </div>
-        );
+    let content: React.ReactNode;
+
+    switch (variant) {
+        case UIRadioVariant.DEFAULT:
+            content = <RadioDefault label={label} />;
+            break;
+        case UIRadioVariant.BUTTON:
+            content = <RadioButton label={label} onClick={onChangeHandler} />;
+            break;
+        case UIRadioVariant.CARDS:
+            content = <RadioCard label={label} children={children} />;
+            break;
+        default:
+            content = <span> {label} </span>;
     }
 
     return (
@@ -71,10 +78,49 @@ export const UIRadio = <T extends string | number>({
                 type="radio"
                 name={name}
                 value={value}
-                checked={checked}
+                checked={selected}
+                disabled={disabled}
                 onChange={onChangeHandler}
+                hidden
             />
-            {variant === UIRadioVariant.CARDS ? children : <span>{label}</span>}
+            {content}
         </label>
+    );
+};
+
+const RadioDefault = ({ label }: UIRadioDefaultProps) => {
+    return (
+        <>
+            <span className={cls["ui-radio__marker"]}></span>
+            {label}
+        </>
+    );
+};
+
+const RadioButton = ({
+    label,
+    disabled = false,
+    onClick,
+}: UIRadioButtonProps) => {
+    return (
+        <UIButton
+            className={cls["ui-radio__btn"]}
+            size={UIButtonSize.LG}
+            disabled={disabled}
+            onClick={onClick}
+        >
+            {label}
+        </UIButton>
+    );
+};
+
+const RadioCard = ({ label, children }: UIRadioCardProps) => {
+    return (
+        children ?? (
+            <div className={cls["ui-radio__default-card"]}>
+                <span className={cls["ui-radio__label"]}>{label}</span>
+                <span className={cls["ui-radio__marker"]}></span>
+            </div>
+        )
     );
 };

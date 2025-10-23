@@ -36,6 +36,7 @@ export const EnemyFileInput = ({
         {
             "animation-shake": hasAnimation,
             [cls["enemy-file-input__has-file"]]: !!file,
+            [cls["enemy-file-input__has-enemy"]]: hasEnemy,
             [cls["enemy-file-input__has-error"]]: hasError,
         },
         []
@@ -119,7 +120,7 @@ export const EnemyFileInput = ({
                         />
                     </UIButton>
                 )}
-                {file && (
+                {file && !hasEnemy && (
                     <UIButton
                         className={cls["enemy-file-input__preview-btn"]}
                         size={UIButtonSize.S}

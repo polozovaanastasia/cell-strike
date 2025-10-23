@@ -1,5 +1,14 @@
 .ui-radio-group {
-    &.variant-button {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    &.variant-button,
+    &.variant-cards {
         display: flex;
+    }
+
+    &.variant-button {
+        gap: 0;
     }
 }

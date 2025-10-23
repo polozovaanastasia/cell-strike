@@ -1,11 +1,9 @@
-import natureBgImage from "@/assets/images/location-bg-nature.jpg";
-import spaceBgImage from "@/assets/images/location-bg-space.png";
 import { OptionType } from "@/components/ui/UIRadioGroup/UIRadioGroup";
 import { EnemyInputModes } from "@/types";
 
 type EnemyInputModeType = OptionType<EnemyInputModes>;
 type GameLocationType = OptionType<number> & {
-    locationImageUrl: string;
+    cssClassName: string;
 };
 
 export const enemyInputModes: EnemyInputModeType[] = [
@@ -22,12 +20,12 @@ export const enemyInputModes: EnemyInputModeType[] = [
 export const gameLocations: GameLocationType[] = [
     {
         value: 1,
-        label: "Один",
-        locationImageUrl: spaceBgImage,
+        label: "Космос",
+        cssClassName: "space",
     },
     {
         value: 2,
-        label: "Два",
-        locationImageUrl: natureBgImage,
+        label: "Поле",
+        cssClassName: "nature",
     },
 ];

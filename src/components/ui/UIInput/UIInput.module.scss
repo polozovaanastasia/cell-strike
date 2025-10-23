@@ -31,7 +31,7 @@
         background-color: var(--input-background);
         color: inherit;
 
-        &::placeholder {
+        &:placeholder {
             color: inherit;
         }
 
@@ -48,7 +48,7 @@
             outline: none;
         }
 
-        &:focus::placeholder {
+        &:focus:placeholder {
             color: transparent;
         }
 
@@ -59,15 +59,15 @@
     }
 
     &_disabled {
-        background-color: var(--input-background_disabled);
-        color: var(--input-color_disabled);
+        background-color: var(--input-background-disabled);
+        color: var(--input-color-disabled);
         cursor: default;
 
         & .ui-input__control {
-            background-color: var(--input-background_disabled);
+            background-color: var(--input-background-disabled);
 
-            &::placeholder {
-                color: var(--input-color_disabled);
+            &:placeholder {
+                color: var(--input-color-disabled);
             }
         }
     }
@@ -75,11 +75,11 @@
     &:focus,
     &:focus-within {
         outline-color: var(--input-border-color_focus);
-        background-color: var(--input-background_focus);
-        color: var(--input-color_focus);
+        background-color: var(--input-background-focus);
+        color: var(--primary-color-dark);
 
         & .ui-input__control {
-            background-color: var(--input-background_focus);
+            background-color: var(--input-background-focus);
         }
     }
 

@@ -14,7 +14,7 @@ export type EnemyStateType = {
 
 export type GameStateType = {
     enemy: EnemyStateType;
-    location: number;
+    location: number | null;
     enemyUrl: string;
     enemyIndex: EnemyIndexType;
     hits: number;
@@ -26,7 +26,7 @@ export const initGameState: GameStateType = {
         url: "",
         index: null,
     },
-    location: 1,
+    location: null,
     enemyUrl: "",
     enemyIndex: null,
     hits: 0,

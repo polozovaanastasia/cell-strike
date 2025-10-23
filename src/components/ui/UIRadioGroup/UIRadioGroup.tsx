@@ -21,7 +21,7 @@ type UIRadioGroupProps<TValue, TOption> = {
     disabled?: boolean;
     variant?: UIRadioVariant;
     onChange: (value: TValue) => void;
-    renderOption?: (option: TOption) => React.ReactNode;
+    renderOption?: (option: TOption, isSelected: boolean) => React.ReactNode;
     className?: string;
 };
 
@@ -45,20 +45,24 @@ export const UIRadioGroup = <
 
     return (
         <div className={UIRadioGroupClasses}>
-            {options.map((option) => (
-                <UIRadio
-                    key={option.value}
-                    name={name}
-                    value={option.value}
-                    label={option.label}
-                    checked={value === option.value}
-                    disabled={disabled || option.disabled}
-                    variant={variant}
-                    onChange={onChange}
-                >
-                    {renderOption && renderOption(option)}
-                </UIRadio>
-            ))}
+            {options.map((option) => {
+                const isSelected = value === option.value;
+                return (
+                    <UIRadio
+                        key={option.value}
+                        name={name}
+                        value={option.value}
+                        label={option.label}
+                        selected={isSelected}
+                        disabled={disabled || option.disabled}
+                        // disabled={disabled}
+                        variant={variant}
+                        onChange={onChange}
+                    >
+                        {renderOption && renderOption(option, isSelected)}
+                    </UIRadio>
+                );
+            })}
         </div>
     );
 };

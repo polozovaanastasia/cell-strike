@@ -39,6 +39,7 @@
 
         &-btn {
             margin: 4px 8px;
+            transition: all ease-in-out 1s;
             cursor: pointer;
         }
         &-clear-btn {
@@ -51,6 +52,7 @@
             width: 450px;
             padding: 0;
         }
+
         .enemy-file-input__preview-label {
             display: flex;
             align-items: center;
@@ -59,7 +61,13 @@
             border-radius: 6px 0 0 6px;
             background-color: var(--button-color);
             white-space: nowrap;
-            color: var(--font-color);
+            color: var(--font-color-light);
+        }
+    }
+
+    &__has-enemy {
+        .enemy-file-input__container {
+            width: 400px;
         }
     }
 
