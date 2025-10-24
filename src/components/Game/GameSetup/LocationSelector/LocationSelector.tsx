@@ -2,14 +2,15 @@ import {
     UIRadioGroup,
     UIRadioVariant,
 } from "@/components/ui/UIRadioGroup/UIRadioGroup";
+import { GameLocationsValue } from "@/types";
 import { classNames } from "@/utils/classNames";
 import { gameLocations } from "../options";
 import cls from "./LocationSelector.module.scss";
 
 type LocationSelectorProps = {
     enemyImageUrl: string;
-    location: number | null;
-    setLocation: (value: number) => void;
+    location: GameLocationsValue | null;
+    setLocation: (value: GameLocationsValue) => void;
 };
 
 export const LocationSelector = ({
@@ -33,10 +34,16 @@ export const LocationSelector = ({
                             {
                                 [cls["location-selector__option_selected"]]:
                                     isSelected,
-                            },
-                            [cls[`option-bg_${option.cssClassName}`]]
+                            }
+                            // [cls[`option-bg_${option.cssClassName}`]]
                         )}
                     >
+                        <div
+                            className={cls["location-selector__option_bg"]}
+                            style={{
+                                backgroundImage: `url(../../../../src/assets/images/${option.bgImage})`,
+                            }}
+                        ></div>
                         <img
                             className={cls["location-selector__option-img"]}
                             src={enemyImageUrl}

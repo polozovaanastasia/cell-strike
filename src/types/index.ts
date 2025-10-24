@@ -11,17 +11,22 @@ export enum GameActionType {
 
 export type GameActionsType =
     | { type: GameActionType.SET_ENEMY_URL; url: string }
-    | { type: GameActionType.SET_LOCATION; value: number }
+    | { type: GameActionType.SET_LOCATION; value: GameLocationsValue }
     | { type: GameActionType.TICK; newEnemyIndex: number }
     | { type: GameActionType.HITS }
     | { type: GameActionType.MISSES };
 
 export enum EnemyInputModes {
-    URL = "url",
-    UPLOAD = "upload",
+    URL = "URL",
+    UPLOAD = "UPLOAD",
 }
 
-export enum GameSetupStepType {
+export enum GameLocationsValue {
+    SPACE = "SPACE",
+    NATURE = "NATURE",
+}
+
+export enum GameSetupStep {
     ENEMY = "ENEMY",
     LOCATION = "LOCATION",
     READY = "READY",

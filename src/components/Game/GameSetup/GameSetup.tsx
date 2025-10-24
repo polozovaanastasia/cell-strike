@@ -4,7 +4,7 @@ import {
     UIRadioGroup,
     UIRadioVariant,
 } from "@/components/ui/UIRadioGroup/UIRadioGroup";
-import { EnemyInputModes, GameSetupStepType } from "@/types";
+import { EnemyInputModes, GameLocationsValue, GameSetupStep } from "@/types";
 import { useState } from "react";
 import { EnemyFileInput } from "./EnemyFileInput/EnemyFileInput";
 import { EnemyUrlInput } from "./EnemyUrlInput/EnemyUrlInput";
@@ -14,9 +14,9 @@ import { enemyInputModes } from "./options";
 
 type GameSetupProps = {
     enemyImageUrl: string;
-    location: number | null;
+    location: GameLocationsValue | null;
     setEnemy: (url: string) => void;
-    setLocation: (value: number) => void;
+    setLocation: (value: GameLocationsValue) => void;
     startGame: (isStarted: boolean) => void;
 };
 
@@ -30,15 +30,15 @@ export const GameSetup = ({
     const [enemyInputMode, setEnemyInputMode] =
         useState<EnemyInputModes | null>(null);
 
-    const [setupStep, setSetupStep] = useState<GameSetupStepType>(
-        GameSetupStepType.ENEMY
+    const [setupStep, setSetupStep] = useState<GameSetupStep>(
+        GameSetupStep.ENEMY
     );
 
     const goNextStep = () => {
-        const steps: GameSetupStepType[] = [
-            GameSetupStepType.ENEMY,
-            GameSetupStepType.LOCATION,
-            GameSetupStepType.READY,
+        const steps: GameSetupStep[] = [
+            GameSetupStep.ENEMY,
+            GameSetupStep.LOCATION,
+            GameSetupStep.READY,
         ];
 
         const currentIndex = steps.indexOf(setupStep);
@@ -47,7 +47,7 @@ export const GameSetup = ({
         if (nextStep) return setSetupStep(nextStep);
     };
 
-    const isStep = (...steps: GameSetupStepType[]) =>
+    const isStep = (...steps: GameSetupStep[]) =>
         steps.includes(setupStep) && enemyImageUrl;
 
     const hasEnemy = !!enemyImageUrl;
@@ -57,7 +57,7 @@ export const GameSetup = ({
         goNextStep();
     };
 
-    const onLocationSelectHandler = (value: number) => {
+    const onLocationSelectHandler = (value: GameLocationsValue) => {
         setLocation(value);
         goNextStep();
     };
@@ -90,14 +90,14 @@ export const GameSetup = ({
                 />
             )}
 
-            {isStep(GameSetupStepType.LOCATION, GameSetupStepType.READY) && (
+            {isStep(GameSetupStep.LOCATION, GameSetupStep.READY) && (
                 <LocationSelector
                     enemyImageUrl={enemyImageUrl}
                     location={location}
                     setLocation={onLocationSelectHandler}
                 />
             )}
-            {isStep(GameSetupStepType.READY) && (
+            {isStep(GameSetupStep.READY) && (
                 <UIButton size={UIButtonSize.LG} onClick={startGameHandler}>
                     Start Game
                 </UIButton>

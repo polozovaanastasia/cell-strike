@@ -1,9 +1,10 @@
 import { OptionType } from "@/components/ui/UIRadioGroup/UIRadioGroup";
-import { EnemyInputModes } from "@/types";
+import { EnemyInputModes, GameLocationsValue } from "@/types";
 
 type EnemyInputModeType = OptionType<EnemyInputModes>;
-type GameLocationType = OptionType<number> & {
+type GameLocationType = OptionType<GameLocationsValue> & {
     cssClassName: string;
+    bgImage: string;
 };
 
 export const enemyInputModes: EnemyInputModeType[] = [
@@ -19,13 +20,15 @@ export const enemyInputModes: EnemyInputModeType[] = [
 
 export const gameLocations: GameLocationType[] = [
     {
-        value: 1,
+        value: GameLocationsValue.SPACE,
         label: "Космос",
         cssClassName: "space",
+        bgImage: "location-bg-space.jpg",
     },
     {
-        value: 2,
+        value: GameLocationsValue.NATURE,
         label: "Поле",
         cssClassName: "nature",
+        bgImage: "location-bg-nature.jpg",
     },
 ];

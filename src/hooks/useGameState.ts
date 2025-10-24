@@ -3,6 +3,7 @@ import {
     EnemyIndexType,
     GameActionsType,
     GameActionType,
+    GameLocationsValue,
     IntervalType,
 } from "@/types";
 import { useCallback, useEffect, useReducer, useRef } from "react";
@@ -14,7 +15,7 @@ export type EnemyStateType = {
 
 export type GameStateType = {
     enemy: EnemyStateType;
-    location: number | null;
+    location: GameLocationsValue | null;
     enemyUrl: string;
     enemyIndex: EnemyIndexType;
     hits: number;
@@ -65,7 +66,7 @@ const setEnemyUrlAC = (url: string): GameActionsType => {
     };
 };
 
-const setLocationAC = (value: number): GameActionsType => {
+const setLocationAC = (value: GameLocationsValue): GameActionsType => {
     return {
         type: GameActionType.SET_LOCATION,
         value,
@@ -107,7 +108,7 @@ export const useGameState = () => {
         dispatch(setEnemyUrlAC(url));
     }, []);
 
-    const setLocation = useCallback((value: number) => {
+    const setLocation = useCallback((value: GameLocationsValue) => {
         dispatch(setLocationAC(value));
     }, []);
 
